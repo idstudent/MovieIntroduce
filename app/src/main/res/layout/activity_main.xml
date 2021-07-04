@@ -12,8 +12,8 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/c_575757"
-            tools:context=".MainActivity">
+            android:background="@color/white"
+            tools:context=".view.MovieIntroduceActivity">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/title_layout"

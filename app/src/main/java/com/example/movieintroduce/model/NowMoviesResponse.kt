@@ -1,5 +1,7 @@
-package com.example.movieintroduce.api.response
+package com.example.movieintroduce.model
 
+import androidx.databinding.BindingAdapter
+import com.bumptech.glide.Glide
 import com.google.gson.annotations.SerializedName
 
 
