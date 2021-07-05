@@ -1,6 +1,7 @@
 package com.example.movieintroduce.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -11,6 +12,7 @@ import com.example.movieintroduce.R
 import com.example.movieintroduce.databinding.ItemMovieBinding
 import com.example.movieintroduce.model.MovieInfo
 import com.example.movieintroduce.model.NowMoviesResponse
+import com.example.movieintroduce.view.MovieDetailActivity
 
 class MovieIntroduceAdapter(
         private val context : Context,
@@ -31,6 +33,12 @@ class MovieIntroduceAdapter(
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int)  {
         holder.movieListItemBinding.movie = listItems[position]
+
+        holder.movieListItemBinding.root.setOnClickListener {
+            val intent = Intent(context, MovieDetailActivity::class.java)
+            intent.putExtra("item", listItems[position])
+            context.startActivity(intent)
+        }
     }
     inner class MovieViewHolder(itemMovieBinding: ItemMovieBinding) : RecyclerView.ViewHolder(itemMovieBinding.root) {
         var movieListItemBinding : ItemMovieBinding = itemMovieBinding
