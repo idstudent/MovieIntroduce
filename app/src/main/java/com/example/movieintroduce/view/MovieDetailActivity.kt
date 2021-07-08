@@ -33,14 +33,14 @@ class MovieDetailActivity : AppCompatActivity() {
 
         binding.movie = movieData
 
-//        for(i in movieData.genre.indices) {
-//            var genere = getGenre(movieData.genre[i])
-//
-//            if(i == 0) {
-//                binding.movieGenre.append(genere)
-//            }else {
-//                binding.movieGenre.append("," + genere)
-//            }
-//        }
+        for(i in movieData.genre.indices) {
+            var genere = getGenre(movieData.genre[i])
+
+            if(i == 0) {
+                binding.movieGenre.append(genere)
+            }else {
+                binding.movieGenre.append("," + genere)
+            }
+        }
     }
 }

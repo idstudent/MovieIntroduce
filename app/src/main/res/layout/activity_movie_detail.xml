@@ -25,7 +25,7 @@
                 android:fitsSystemWindows="true"
                 app:contentScrim="@color/black"
                 app:expandedTitleTextAppearance="@color/white"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+                app:layout_scrollFlags="scroll|enterAlwaysCollapsed">
 
                 <ImageView
                     android:layout_width="match_parent"
@@ -44,7 +44,6 @@
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:clipToPadding="false"
             android:fillViewport="true"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
@@ -54,6 +53,76 @@
                 android:animateLayoutChanges="true"
                 android:layout_marginBottom="?attr/actionBarSize">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="장르 : "
+                    style="@style/black_000000_14dp"
+                    app:layout_constraintRight_toLeftOf="@+id/movie_genre"
+                    app:layout_constraintTop_toTopOf="@+id/movie_genre"
+                    app:layout_constraintBottom_toBottomOf="@+id/movie_genre"/>
+
+                <TextView
+                    android:id="@+id/movie_genre"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/black_000000_14dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginRight="8dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"/>
+
+                <TextView
+                    android:id="@+id/release_date_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="개봉일 :"
+                    style="@style/black_000000_14dp"
+                    android:layout_marginLeft="8dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/release_date"
+                    app:layout_constraintBottom_toBottomOf="@id/release_date"/>
+                <TextView
+                    android:id="@+id/release_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{movie.releaseDate}"
+                    style="@style/black_000000_14dp"
+                    android:layout_marginLeft="4dp"
+                    app:layout_constraintLeft_toRightOf="@+id/release_date_title"
+                    app:layout_constraintTop_toTopOf="@id/movie_grade"
+                    app:layout_constraintBottom_toBottomOf="@id/movie_grade"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="평점 :"
+                    style="@style/black_000000_14dp"
+                    android:layout_marginRight="4dp"
+                    app:layout_constraintTop_toTopOf="@id/movie_grade"
+                    app:layout_constraintBottom_toBottomOf="@+id/movie_grade"
+                    app:layout_constraintRight_toLeftOf="@+id/movie_grade"/>
+                <TextView
+                    android:id="@+id/movie_grade"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/black_000000_14dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@{String.valueOf(movie.movieGrade)}"
+                    app:layout_constraintTop_toBottomOf="@+id/movie_genre"
+                    app:layout_constraintRight_toRightOf="@+id/movie_genre"/>
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@{movie.movieOverView}"
+                    android:textStyle="bold"
+                    style="@style/black_000000_14dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    app:layout_constraintTop_toBottomOf="@+id/movie_grade"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
