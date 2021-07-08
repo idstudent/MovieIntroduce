@@ -24,6 +24,11 @@ class MovieIntroduceActivity : AppCompatActivity() {
         movieIntroduceViewModel = ViewModelProvider(this).get(MovieIntroduceViewModel::class.java)
 
         getMovieIntroduce()
+
+        binding.swipeLayout.setOnRefreshListener {
+            getMovieIntroduce()
+            binding.swipeLayout.isRefreshing = false
+        }
     }
 
     private fun getMovieIntroduce() {
