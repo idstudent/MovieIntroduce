@@ -13,11 +13,11 @@ data class NowMoviesResponse (
 )
 data class MovieInfo(
     @SerializedName("id")
-    var id : Int,
+    var movieId : Int,
     @SerializedName("backdrop_path") // 상세 이미지
     var detailImg : String,
-    @SerializedName("genre_ids") // 장르
-    var genre : ArrayList<Int>,
+//    @SerializedName("genre_ids") // 장르
+//    var genre : ArrayList<Int>,
     @SerializedName("overview") // 영화소개
     var movieOverView : String,
     @SerializedName("poster_path") // 영화 포스터이미지

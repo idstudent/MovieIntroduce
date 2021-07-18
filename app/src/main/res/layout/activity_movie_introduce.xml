@@ -25,6 +25,7 @@
                 app:layout_constraintTop_toTopOf="parent" >
 
                 <TextView
+                    android:id="@+id/title_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="현재 상영중인 영화"
@@ -36,6 +37,17 @@
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    app:layout_constraintDimensionRatio="20:20"
+                    android:background="@drawable/ic_baseline_favorite_24"
+                    android:backgroundTint="@color/white"
+                    android:layout_marginRight="16dp"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/title_text"
+                    app:layout_constraintBottom_toBottomOf="@+id/title_text"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.recyclerview.widget.RecyclerView

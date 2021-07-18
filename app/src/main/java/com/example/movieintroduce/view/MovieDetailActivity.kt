@@ -5,18 +5,23 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import com.example.movieintroduce.R
 import com.example.movieintroduce.databinding.ActivityMovieDetailBinding
 import com.example.movieintroduce.getGenre
 import com.example.movieintroduce.model.MovieInfo
+import com.example.movieintroduce.viewmodel.MovieDetailViewModel
 
 class MovieDetailActivity : AppCompatActivity() {
     private lateinit var binding : ActivityMovieDetailBinding
+    private lateinit var test: MovieDetailViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_movie_detail)
+        test = ViewModelProvider(this).get(MovieDetailViewModel::class.java)
 
+        binding.movieViewModel = test
         if (supportActionBar != null) {
             supportActionBar?.setDisplayHomeAsUpEnabled(false)
         }
@@ -33,14 +38,14 @@ class MovieDetailActivity : AppCompatActivity() {
 
         binding.movie = movieData
 
-        for(i in movieData.genre.indices) {
-            var genere = getGenre(movieData.genre[i])
-
-            if(i == 0) {
-                binding.movieGenre.append(genere)
-            }else {
-                binding.movieGenre.append("," + genere)
-            }
-        }
+//        for(i in movieData.genre.indices) {
+//            var genere = getGenre(movieData.genre[i])
+//
+//            if(i == 0) {
+//                binding.movieGenre.append(genere)
+//            }else {
+//                binding.movieGenre.append("," + genere)
+//            }
+//        }
     }
 }
