@@ -2,10 +2,8 @@ package com.example.movieintroduce.viewmodel
 
 import android.app.Application
 import android.util.Log
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.liveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
+import com.example.movieintroduce.Event
 import com.example.movieintroduce.db.Movie
 import com.example.movieintroduce.db.MovieDatabase
 import com.example.movieintroduce.model.MovieInfo
@@ -16,11 +14,27 @@ import kotlinx.coroutines.launch
 
 class MovieDetailViewModel(application: Application) : AndroidViewModel(application) {
     private var movieRepository = MovieRepository(MovieDatabase.getInstance(application).movieDAO)
+    private var likeStatus = MutableLiveData<Event<Boolean>>()
+
+    val like : LiveData<Event<Boolean>>
+        get() = likeStatus
 
     fun insert(movie : MovieInfo) : Job {
-        Log.e("tag", "여기탐" + movie)
         return viewModelScope.launch {
-            movieRepository.insert(Movie(0,movie))
+            movieRepository.insert(
+                Movie(movie.movieId, movie.detailImg,movie.movieOverView,
+                        movie.movieMainImg, movie.releaseDate, movie.movieTitle,
+                        movie.movieGrade))
+            likeStatus.value = Event(true)
+        }
+    }
+    fun delete(movie : MovieInfo) : Job {
+        return viewModelScope.launch {
+            movieRepository.delete(
+                Movie(movie.movieId, movie.detailImg,movie.movieOverView,
+                    movie.movieMainImg, movie.releaseDate, movie.movieTitle,
+                    movie.movieGrade))
+            likeStatus.value = Event(false)
         }
     }
     fun getMovies() : LiveData<List<Movie>> {

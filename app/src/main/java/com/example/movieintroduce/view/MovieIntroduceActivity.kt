@@ -1,5 +1,6 @@
 package com.example.movieintroduce.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.movieintroduce.R
 import com.example.movieintroduce.adapter.MovieIntroduceAdapter
 import com.example.movieintroduce.databinding.ActivityMovieIntroduceBinding
+import com.example.movieintroduce.listener.ItemClickListener
 import com.example.movieintroduce.model.MovieInfo
 import com.example.movieintroduce.viewmodel.MovieDetailViewModel
 import com.example.movieintroduce.viewmodel.MovieIntroduceViewModel
@@ -18,14 +20,15 @@ class MovieIntroduceActivity : AppCompatActivity() {
     private lateinit var adapter  : MovieIntroduceAdapter
     private lateinit var binding : ActivityMovieIntroduceBinding
     private lateinit var movieIntroduceViewModel: MovieIntroduceViewModel
-    private lateinit var test: MovieDetailViewModel
+    private lateinit var movieDetailViewModel: MovieDetailViewModel
+    private var movieIdList = ArrayList<Int>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_movie_introduce)
         movieIntroduceViewModel = ViewModelProvider(this).get(MovieIntroduceViewModel::class.java)
-        test = ViewModelProvider(this).get(MovieDetailViewModel::class.java)
+        movieDetailViewModel = ViewModelProvider(this).get(MovieDetailViewModel::class.java)
 
         getMovieIntroduce()
 
@@ -35,19 +38,38 @@ class MovieIntroduceActivity : AppCompatActivity() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        getLike()
+    }
     private fun getMovieIntroduce() {
         movieIntroduceViewModel.getMovieIntroduces().observe(this, Observer<List<MovieInfo>> { t ->
             showMovieIntroduce(t)
         })
-        test.getMovies().observe(this, Observer {
-            Log.e("tag", it.toString())
+    }
+    private fun getLike() {
+        movieDetailViewModel.getMovies().observe(this, Observer {
+            movieIdList.clear()
+            for(i in it.indices) {
+                movieIdList.add(it[i].movieId)
+            }
         })
     }
     private fun showMovieIntroduce(nowMoviesResponse: List<MovieInfo>) {
         val movieRecycler = binding.movieRecycler
         adapter = MovieIntroduceAdapter(this@MovieIntroduceActivity, nowMoviesResponse)
+        adapter.itemClickListener(listener)
         movieRecycler.layoutManager = GridLayoutManager(this@MovieIntroduceActivity, 2)
         movieRecycler.adapter = adapter
         adapter.notifyDataSetChanged()
+    }
+    val listener = object : ItemClickListener {
+        override fun onClick(item: MovieInfo) {
+            val intent = Intent(this@MovieIntroduceActivity, MovieDetailActivity::class.java)
+            intent.putExtra("item", item)
+            intent.putExtra("id", movieIdList)
+            startActivity(intent)
+        }
     }
 }

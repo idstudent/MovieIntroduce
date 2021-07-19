@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.movieintroduce.R
 import com.example.movieintroduce.databinding.ItemMovieBinding
+import com.example.movieintroduce.listener.ItemClickListener
 import com.example.movieintroduce.model.MovieInfo
 import com.example.movieintroduce.model.NowMoviesResponse
 import com.example.movieintroduce.view.MovieDetailActivity
@@ -19,7 +20,11 @@ class MovieIntroduceAdapter(
         private val listItems : List<MovieInfo>
 ) : RecyclerView.Adapter<MovieIntroduceAdapter.MovieViewHolder>() {
 
-    @NonNull
+    private lateinit var listener : ItemClickListener
+
+    fun itemClickListener(listener: ItemClickListener) {
+        this.listener = listener
+    }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         val movieListItemBinding : ItemMovieBinding = DataBindingUtil.inflate(LayoutInflater.from(context)
                 , R.layout.item_movie, parent, false)
@@ -35,9 +40,7 @@ class MovieIntroduceAdapter(
         holder.movieListItemBinding.movie = listItems[position]
 
         holder.movieListItemBinding.root.setOnClickListener {
-            val intent = Intent(context, MovieDetailActivity::class.java)
-            intent.putExtra("item", listItems[position])
-            context.startActivity(intent)
+            listener.onClick(listItems[position])
         }
     }
     inner class MovieViewHolder(itemMovieBinding: ItemMovieBinding) : RecyclerView.ViewHolder(itemMovieBinding.root) {
