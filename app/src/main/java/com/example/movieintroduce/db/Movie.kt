@@ -5,6 +5,7 @@ import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.example.movieintroduce.model.MovieInfo
+import java.io.Serializable
 
 @Entity(tableName = "movie_table")
 data class Movie (
@@ -22,4 +23,4 @@ data class Movie (
     var movieTitle : String,
     @ColumnInfo(name = "vote_average")
     var movieGrade : Double
-)
+):Serializable

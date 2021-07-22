@@ -42,12 +42,15 @@ class MovieIntroduceActivity : AppCompatActivity() {
         super.onResume()
 
         getLike()
+        onClick()
     }
     private fun getMovieIntroduce() {
         movieIntroduceViewModel.getMovieIntroduces().observe(this, Observer<List<MovieInfo>> { t ->
             showMovieIntroduce(t)
         })
     }
+
+    // 좋아요 체크
     private fun getLike() {
         movieDetailViewModel.getMovies().observe(this, Observer {
             movieIdList.clear()
@@ -64,11 +67,17 @@ class MovieIntroduceActivity : AppCompatActivity() {
         movieRecycler.adapter = adapter
         adapter.notifyDataSetChanged()
     }
-    val listener = object : ItemClickListener {
+    val listener = object : ItemClickListener<MovieInfo> {
         override fun onClick(item: MovieInfo) {
             val intent = Intent(this@MovieIntroduceActivity, MovieDetailActivity::class.java)
             intent.putExtra("item", item)
             intent.putExtra("id", movieIdList)
+            startActivity(intent)
+        }
+    }
+    private fun onClick() {
+        binding.likeShowBtn.setOnClickListener {
+            val intent = Intent(this@MovieIntroduceActivity, MyLikeActivity::class.java)
             startActivity(intent)
         }
     }

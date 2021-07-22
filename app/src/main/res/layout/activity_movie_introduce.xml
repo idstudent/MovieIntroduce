@@ -39,6 +39,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"/>
 
                 <ImageView
+                    android:id="@+id/like_show_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     app:layout_constraintDimensionRatio="20:20"

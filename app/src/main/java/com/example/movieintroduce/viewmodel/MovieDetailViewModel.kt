@@ -19,7 +19,7 @@ class MovieDetailViewModel(application: Application) : AndroidViewModel(applicat
     val like : LiveData<Event<Boolean>>
         get() = likeStatus
 
-    fun insert(movie : MovieInfo) : Job {
+    fun introduceMovieInsert(movie : MovieInfo) : Job {
         return viewModelScope.launch {
             movieRepository.insert(
                 Movie(movie.movieId, movie.detailImg,movie.movieOverView,
@@ -28,7 +28,25 @@ class MovieDetailViewModel(application: Application) : AndroidViewModel(applicat
             likeStatus.value = Event(true)
         }
     }
-    fun delete(movie : MovieInfo) : Job {
+    fun likeMovieInsert(movie : Movie) : Job {
+        return viewModelScope.launch {
+            movieRepository.insert(
+                Movie(movie.movieId, movie.detailImg,movie.movieOverView,
+                    movie.movieMainImg, movie.releaseDate, movie.movieTitle,
+                    movie.movieGrade))
+            likeStatus.value = Event(true)
+        }
+    }
+    fun introduceMovieDelete(movie : MovieInfo) : Job {
+        return viewModelScope.launch {
+            movieRepository.delete(
+                Movie(movie.movieId, movie.detailImg,movie.movieOverView,
+                    movie.movieMainImg, movie.releaseDate, movie.movieTitle,
+                    movie.movieGrade))
+            likeStatus.value = Event(false)
+        }
+    }
+    fun likeMovieDelete(movie : Movie) : Job {
         return viewModelScope.launch {
             movieRepository.delete(
                 Movie(movie.movieId, movie.detailImg,movie.movieOverView,

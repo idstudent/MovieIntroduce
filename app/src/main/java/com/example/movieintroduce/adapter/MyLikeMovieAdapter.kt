@@ -6,23 +6,24 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.movieintroduce.R
+import com.example.movieintroduce.databinding.ItemLikeMovieBinding
 import com.example.movieintroduce.databinding.ItemMovieBinding
+import com.example.movieintroduce.db.Movie
 import com.example.movieintroduce.listener.ItemClickListener
-import com.example.movieintroduce.model.MovieInfo
 
-class MovieIntroduceAdapter(
+class MyLikeMovieAdapter(
         private val context : Context,
-        private val listItems : List<MovieInfo>
-) : RecyclerView.Adapter<MovieIntroduceAdapter.MovieViewHolder>() {
+        private val listItems : List<Movie>
+) : RecyclerView.Adapter<MyLikeMovieAdapter.MovieViewHolder>() {
 
-    private lateinit var listener : ItemClickListener<MovieInfo>
+    private lateinit var listener : ItemClickListener<Movie>
 
-    fun itemClickListener(listener: ItemClickListener<MovieInfo>) {
+    fun itemClickListener(listener: ItemClickListener<Movie>) {
         this.listener = listener
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
-        val movieListItemBinding : ItemMovieBinding = DataBindingUtil.inflate(LayoutInflater.from(context)
-                , R.layout.item_movie, parent, false)
+        val movieListItemBinding : ItemLikeMovieBinding = DataBindingUtil.inflate(LayoutInflater.from(context)
+                , R.layout.item_like_movie, parent, false)
 
         return MovieViewHolder(movieListItemBinding)
     }
@@ -38,8 +39,8 @@ class MovieIntroduceAdapter(
             listener.onClick(listItems[position])
         }
     }
-    inner class MovieViewHolder(itemMovieBinding: ItemMovieBinding) : RecyclerView.ViewHolder(itemMovieBinding.root) {
-        var movieListItemBinding : ItemMovieBinding = itemMovieBinding
+    inner class MovieViewHolder(itemMovieBinding: ItemLikeMovieBinding) : RecyclerView.ViewHolder(itemMovieBinding.root) {
+        var movieListItemBinding : ItemLikeMovieBinding = itemMovieBinding
     }
 
 }
