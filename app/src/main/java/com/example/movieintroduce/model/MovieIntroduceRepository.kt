@@ -4,16 +4,16 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.example.movieintroduce.BuildConfig
 import com.example.movieintroduce.api.ApiManager
-import com.google.gson.Gson
-import com.google.gson.JsonElement
+import com.example.movieintroduce.db.Movie
+import com.example.movieintroduce.db.NowMoviesResponse
 import retrofit2.Call
 import retrofit2.Response
 
 class MovieIntroduceRepository {
-    private var mutableMovieIntroduceLiveData : MutableLiveData<List<MovieInfo>> = MutableLiveData()
+    private var mutableMovieIntroduceLiveData : MutableLiveData<List<Movie>> = MutableLiveData()
     private var movieIntroduceList = ArrayList<NowMoviesResponse>()
 
-    fun getNowMovies() : MutableLiveData<List<MovieInfo>>{
+    fun getNowMovies() : MutableLiveData<List<Movie>>{
         movieIntroduceList.clear()
 
         ApiManager.getInstance().getNowViewMovies(BuildConfig.api_key, "ko")

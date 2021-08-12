@@ -5,7 +5,7 @@ import com.bumptech.glide.Glide
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
-data class NowMoviesResponse (
+data class NowMoviesResponseT (
     @SerializedName("page")
     var page : Int,
     @SerializedName("results")

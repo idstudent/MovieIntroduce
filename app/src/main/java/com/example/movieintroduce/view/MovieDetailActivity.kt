@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.movieintroduce.Event
 import com.example.movieintroduce.R
 import com.example.movieintroduce.databinding.ActivityMovieDetailBinding
+import com.example.movieintroduce.db.Movie
 import com.example.movieintroduce.getGenre
 import com.example.movieintroduce.model.MovieInfo
 import com.example.movieintroduce.viewmodel.MovieDetailViewModel
@@ -41,7 +42,7 @@ class MovieDetailActivity : AppCompatActivity() {
     }
     private fun movieDataShow() {
         val intent = intent
-        val movieData = intent.getSerializableExtra("item") as MovieInfo
+        val movieData = intent.getSerializableExtra("item") as Movie
         val idList = intent.getSerializableExtra("id") as ArrayList<Int>
 
         val toolbar = findViewById<View>(R.id.toolbar) as Toolbar

@@ -1,7 +1,6 @@
 package com.example.movieintroduce.api
 
-import com.example.movieintroduce.model.NowMoviesResponse
-import com.google.gson.JsonElement
+import com.example.movieintroduce.db.NowMoviesResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query

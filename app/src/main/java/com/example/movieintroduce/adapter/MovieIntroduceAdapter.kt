@@ -7,17 +7,18 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.movieintroduce.R
 import com.example.movieintroduce.databinding.ItemMovieBinding
+import com.example.movieintroduce.db.Movie
 import com.example.movieintroduce.listener.ItemClickListener
 import com.example.movieintroduce.model.MovieInfo
 
 class MovieIntroduceAdapter(
         private val context : Context,
-        private val listItems : List<MovieInfo>
+        private val listItems : List<Movie>
 ) : RecyclerView.Adapter<MovieIntroduceAdapter.MovieViewHolder>() {
 
-    private lateinit var listener : ItemClickListener<MovieInfo>
+    private lateinit var listener : ItemClickListener<Movie>
 
-    fun itemClickListener(listener: ItemClickListener<MovieInfo>) {
+    fun itemClickListener(listener: ItemClickListener<Movie>) {
         this.listener = listener
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {

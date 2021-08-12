@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.movieintroduce.R
 import com.example.movieintroduce.adapter.MovieIntroduceAdapter
 import com.example.movieintroduce.databinding.ActivityMovieIntroduceBinding
+import com.example.movieintroduce.db.Movie
 import com.example.movieintroduce.listener.ItemClickListener
 import com.example.movieintroduce.model.MovieInfo
 import com.example.movieintroduce.viewmodel.MovieDetailViewModel
@@ -45,7 +46,7 @@ class MovieIntroduceActivity : AppCompatActivity() {
         onClick()
     }
     private fun getMovieIntroduce() {
-        movieIntroduceViewModel.getMovieIntroduces().observe(this, Observer<List<MovieInfo>> { t ->
+        movieIntroduceViewModel.getMovieIntroduces().observe(this, Observer<List<Movie>> { t ->
             showMovieIntroduce(t)
         })
     }
@@ -59,7 +60,7 @@ class MovieIntroduceActivity : AppCompatActivity() {
             }
         })
     }
-    private fun showMovieIntroduce(nowMoviesResponse: List<MovieInfo>) {
+    private fun showMovieIntroduce(nowMoviesResponse: List<Movie>) {
         val movieRecycler = binding.movieRecycler
         adapter = MovieIntroduceAdapter(this@MovieIntroduceActivity, nowMoviesResponse)
         adapter.itemClickListener(listener)
@@ -67,8 +68,8 @@ class MovieIntroduceActivity : AppCompatActivity() {
         movieRecycler.adapter = adapter
         adapter.notifyDataSetChanged()
     }
-    val listener = object : ItemClickListener<MovieInfo> {
-        override fun onClick(item: MovieInfo) {
+    val listener = object : ItemClickListener<Movie> {
+        override fun onClick(item: Movie) {
             val intent = Intent(this@MovieIntroduceActivity, MovieDetailActivity::class.java)
             intent.putExtra("item", item)
             intent.putExtra("id", movieIdList)
