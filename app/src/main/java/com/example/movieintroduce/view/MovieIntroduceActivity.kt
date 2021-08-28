@@ -2,7 +2,6 @@ package com.example.movieintroduce.view
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -13,7 +12,6 @@ import com.example.movieintroduce.adapter.MovieIntroduceAdapter
 import com.example.movieintroduce.databinding.ActivityMovieIntroduceBinding
 import com.example.movieintroduce.db.Movie
 import com.example.movieintroduce.listener.ItemClickListener
-import com.example.movieintroduce.model.MovieInfo
 import com.example.movieintroduce.viewmodel.MovieDetailViewModel
 import com.example.movieintroduce.viewmodel.MovieIntroduceViewModel
 
