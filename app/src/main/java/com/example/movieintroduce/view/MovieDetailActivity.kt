@@ -2,20 +2,14 @@ package com.example.movieintroduce.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.example.movieintroduce.Event
 import com.example.movieintroduce.R
 import com.example.movieintroduce.databinding.ActivityMovieDetailBinding
 import com.example.movieintroduce.db.Movie
-import com.example.movieintroduce.getGenre
-import com.example.movieintroduce.model.MovieInfo
 import com.example.movieintroduce.viewmodel.MovieDetailViewModel
 
 class MovieDetailActivity : AppCompatActivity() {
