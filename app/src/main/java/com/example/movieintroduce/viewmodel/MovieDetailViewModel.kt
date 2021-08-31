@@ -6,7 +6,6 @@ import androidx.lifecycle.*
 import com.example.movieintroduce.Event
 import com.example.movieintroduce.db.Movie
 import com.example.movieintroduce.db.MovieDatabase
-import com.example.movieintroduce.model.MovieInfo
 import com.example.movieintroduce.model.MovieRepository
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collect
