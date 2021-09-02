@@ -35,13 +35,13 @@ class MovieIntroduceActivity : AppCompatActivity() {
             getMovieIntroduce()
             binding.swipeLayout.isRefreshing = false
         }
+        onClick()
     }
 
     override fun onResume() {
         super.onResume()
 
         getLike()
-        onClick()
     }
     private fun getMovieIntroduce() {
         movieIntroduceViewModel.getMovieIntroduces().observe(this, Observer<List<Movie>> { t ->

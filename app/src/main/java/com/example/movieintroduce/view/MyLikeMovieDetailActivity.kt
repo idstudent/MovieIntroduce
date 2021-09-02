@@ -27,13 +27,10 @@ class MyLikeMovieDetailActivity : AppCompatActivity() {
         }
 
         movieDataShow()
-    }
-
-    override fun onResume() {
-        super.onResume()
 
         setLikeStatus()
     }
+
     private fun movieDataShow() {
         val intent = intent
         val movieData = intent.getSerializableExtra("item") as Movie

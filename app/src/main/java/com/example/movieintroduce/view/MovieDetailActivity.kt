@@ -2,6 +2,7 @@ package com.example.movieintroduce.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
@@ -27,13 +28,9 @@ class MovieDetailActivity : AppCompatActivity() {
         }
 
         movieDataShow()
-    }
-
-    override fun onResume() {
-        super.onResume()
-
         setLikeStatus()
     }
+
     private fun movieDataShow() {
         val intent = intent
         val movieData = intent.getSerializableExtra("item") as Movie
