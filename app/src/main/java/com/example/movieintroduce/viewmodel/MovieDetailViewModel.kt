@@ -11,8 +11,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
-class MovieDetailViewModel(application: Application) : AndroidViewModel(application) {
-    private var movieRepository = MovieRepository(MovieDatabase.getInstance(application).movieDAO)
+class MovieDetailViewModel(private val repository: MovieRepository) : ViewModel() {
     private var likeStatus = MutableLiveData<Event<Boolean>>()
 
     val like : LiveData<Event<Boolean>>
@@ -20,7 +19,7 @@ class MovieDetailViewModel(application: Application) : AndroidViewModel(applicat
 
     fun likeMovieInsert(movie : Movie) : Job {
         return viewModelScope.launch {
-            movieRepository.insert(
+            repository.insert(
                 Movie(movie.movieId, movie.detailImg,movie.movieOverView,
                     movie.movieMainImg, movie.releaseDate, movie.movieTitle,
                     movie.movieGrade))
@@ -30,7 +29,7 @@ class MovieDetailViewModel(application: Application) : AndroidViewModel(applicat
 
     fun likeMovieDelete(movie : Movie) : Job {
         return viewModelScope.launch {
-            movieRepository.delete(
+            repository.delete(
                 Movie(movie.movieId, movie.detailImg,movie.movieOverView,
                     movie.movieMainImg, movie.releaseDate, movie.movieTitle,
                     movie.movieGrade))
@@ -39,7 +38,7 @@ class MovieDetailViewModel(application: Application) : AndroidViewModel(applicat
     }
     fun getMovies() : LiveData<List<Movie>> {
         return liveData {
-            movieRepository.movies.collect {
+            repository.movies.collect {
                 emit(it)
             }
         }

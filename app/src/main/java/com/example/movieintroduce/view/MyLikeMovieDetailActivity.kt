@@ -7,9 +7,12 @@ import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.example.movieintroduce.viewmodel.MovieDetailViewModelFactory
 import com.example.movieintroduce.R
 import com.example.movieintroduce.databinding.ActivityMyLikeMovieDetailBinding
 import com.example.movieintroduce.db.Movie
+import com.example.movieintroduce.db.MovieDatabase
+import com.example.movieintroduce.model.MovieRepository
 import com.example.movieintroduce.viewmodel.MovieDetailViewModel
 
 class MyLikeMovieDetailActivity : AppCompatActivity() {
@@ -19,9 +22,14 @@ class MyLikeMovieDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_my_like_movie_detail)
-        movieDetailViewModel = ViewModelProvider(this).get(MovieDetailViewModel::class.java)
 
+        val dao = MovieDatabase.getInstance(application).movieDAO
+        val repository = MovieRepository(dao)
+        val factory = MovieDetailViewModelFactory(repository)
+
+        movieDetailViewModel = ViewModelProvider(this,factory).get(MovieDetailViewModel::class.java)
         binding.movieViewModel = movieDetailViewModel
+
         if (supportActionBar != null) {
             supportActionBar?.setDisplayHomeAsUpEnabled(false)
         }
