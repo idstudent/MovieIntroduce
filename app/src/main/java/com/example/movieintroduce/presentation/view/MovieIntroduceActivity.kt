@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.movieintroduce.presentation.viewmodel.MovieDetailViewModelFactory
 import com.example.movieintroduce.R
-import com.example.movieintroduce.adapter.MovieIntroduceAdapter
+import com.example.movieintroduce.presentation.adapter.MovieIntroduceAdapter
 import com.example.movieintroduce.databinding.ActivityMovieIntroduceBinding
 import com.example.movieintroduce.data.db.Movie
 import com.example.movieintroduce.data.db.MovieDatabase
