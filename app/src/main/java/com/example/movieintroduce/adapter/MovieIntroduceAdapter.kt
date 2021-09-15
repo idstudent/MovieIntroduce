@@ -7,7 +7,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.movieintroduce.R
 import com.example.movieintroduce.databinding.ItemMovieBinding
-import com.example.movieintroduce.db.Movie
+import com.example.movieintroduce.data.db.Movie
 import com.example.movieintroduce.listener.ItemClickListener
 
 class MovieIntroduceAdapter(

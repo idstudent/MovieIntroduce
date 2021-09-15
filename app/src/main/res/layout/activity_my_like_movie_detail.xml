@@ -6,10 +6,10 @@
     <data>
         <variable
             name="movie"
-            type="com.example.movieintroduce.db.Movie" />
+            type="com.example.movieintroduce.data.db.Movie" />
         <variable
             name="movieViewModel"
-            type="com.example.movieintroduce.viewmodel.MovieDetailViewModel" />
+            type="com.example.movieintroduce.presentation.viewmodel.MovieDetailViewModel" />
     </data>
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"

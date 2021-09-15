@@ -1,12 +1,9 @@
-package com.example.movieintroduce.viewmodel
+package com.example.movieintroduce.presentation.viewmodel
 
-import android.app.Application
-import android.util.Log
 import androidx.lifecycle.*
 import com.example.movieintroduce.Event
-import com.example.movieintroduce.db.Movie
-import com.example.movieintroduce.db.MovieDatabase
-import com.example.movieintroduce.model.MovieRepository
+import com.example.movieintroduce.data.db.Movie
+import com.example.movieintroduce.data.model.MovieRepository
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch

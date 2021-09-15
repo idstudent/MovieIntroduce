@@ -1,21 +1,19 @@
-package com.example.movieintroduce.view
+package com.example.movieintroduce.presentation.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.room.RoomDatabase
-import com.example.movieintroduce.viewmodel.MovieDetailViewModelFactory
+import com.example.movieintroduce.presentation.viewmodel.MovieDetailViewModelFactory
 import com.example.movieintroduce.R
 import com.example.movieintroduce.databinding.ActivityMovieDetailBinding
-import com.example.movieintroduce.db.Movie
-import com.example.movieintroduce.db.MovieDatabase
-import com.example.movieintroduce.model.MovieRepository
-import com.example.movieintroduce.viewmodel.MovieDetailViewModel
+import com.example.movieintroduce.data.db.Movie
+import com.example.movieintroduce.data.db.MovieDatabase
+import com.example.movieintroduce.data.model.MovieRepository
+import com.example.movieintroduce.presentation.viewmodel.MovieDetailViewModel
 
 class MovieDetailActivity : AppCompatActivity() {
     private lateinit var binding : ActivityMovieDetailBinding

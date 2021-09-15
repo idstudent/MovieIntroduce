@@ -1,9 +1,9 @@
-package com.example.movieintroduce.viewmodel
+package com.example.movieintroduce.presentation.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import com.example.movieintroduce.db.Movie
-import com.example.movieintroduce.model.MovieIntroduceRepository
+import com.example.movieintroduce.data.db.Movie
+import com.example.movieintroduce.data.model.MovieIntroduceRepository
 
 class MovieIntroduceViewModel : ViewModel() {
     private var movieIntroduceRepository = MovieIntroduceRepository()

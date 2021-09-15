@@ -1,7 +1,7 @@
-package com.example.movieintroduce.model
+package com.example.movieintroduce.data.model
 
-import com.example.movieintroduce.db.Movie
-import com.example.movieintroduce.db.MovieDAO
+import com.example.movieintroduce.data.db.Movie
+import com.example.movieintroduce.data.db.MovieDAO
 
 class MovieRepository(private val dao : MovieDAO) {
     val movies = dao.selectMovies()

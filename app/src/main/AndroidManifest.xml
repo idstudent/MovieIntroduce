@@ -11,10 +11,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MovieIntroduce">
-        <activity android:name=".view.MyLikeActivity"/>
-        <activity android:name=".view.MovieDetailActivity" />
-        <activity android:name=".view.MyLikeMovieDetailActivity"/>
-        <activity android:name=".view.MovieIntroduceActivity">
+        <activity android:name="com.example.movieintroduce.presentation.view.MyLikeActivity"/>
+        <activity android:name="com.example.movieintroduce.presentation.view.MovieDetailActivity" />
+        <activity android:name="com.example.movieintroduce.presentation.view.MyLikeMovieDetailActivity"/>
+        <activity android:name="com.example.movieintroduce.presentation.view.MovieIntroduceActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

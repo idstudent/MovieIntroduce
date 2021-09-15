@@ -1,11 +1,11 @@
-package com.example.movieintroduce.model
+package com.example.movieintroduce.data.model
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.example.movieintroduce.BuildConfig
-import com.example.movieintroduce.api.ApiManager
-import com.example.movieintroduce.db.Movie
-import com.example.movieintroduce.db.NowMoviesResponse
+import com.example.movieintroduce.data.api.ApiManager
+import com.example.movieintroduce.data.db.Movie
+import com.example.movieintroduce.data.db.NowMoviesResponse
 import retrofit2.Call
 import retrofit2.Response
 

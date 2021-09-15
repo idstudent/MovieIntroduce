@@ -1,4 +1,4 @@
-package com.example.movieintroduce.api
+package com.example.movieintroduce.data.api
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

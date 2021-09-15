@@ -1,4 +1,4 @@
-package com.example.movieintroduce.view
+package com.example.movieintroduce.presentation.view
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,16 +7,16 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.movieintroduce.viewmodel.MovieDetailViewModelFactory
+import com.example.movieintroduce.presentation.viewmodel.MovieDetailViewModelFactory
 import com.example.movieintroduce.R
 import com.example.movieintroduce.adapter.MovieIntroduceAdapter
 import com.example.movieintroduce.databinding.ActivityMovieIntroduceBinding
-import com.example.movieintroduce.db.Movie
-import com.example.movieintroduce.db.MovieDatabase
+import com.example.movieintroduce.data.db.Movie
+import com.example.movieintroduce.data.db.MovieDatabase
 import com.example.movieintroduce.listener.ItemClickListener
-import com.example.movieintroduce.model.MovieRepository
-import com.example.movieintroduce.viewmodel.MovieDetailViewModel
-import com.example.movieintroduce.viewmodel.MovieIntroduceViewModel
+import com.example.movieintroduce.data.model.MovieRepository
+import com.example.movieintroduce.presentation.viewmodel.MovieDetailViewModel
+import com.example.movieintroduce.presentation.viewmodel.MovieIntroduceViewModel
 
 class MovieIntroduceActivity : AppCompatActivity() {
     private lateinit var adapter  : MovieIntroduceAdapter

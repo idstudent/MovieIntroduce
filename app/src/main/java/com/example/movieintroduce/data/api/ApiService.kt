@@ -1,6 +1,6 @@
-package com.example.movieintroduce.api
+package com.example.movieintroduce.data.api
 
-import com.example.movieintroduce.db.NowMoviesResponse
+import com.example.movieintroduce.data.db.NowMoviesResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
