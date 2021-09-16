@@ -7,11 +7,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.movieintroduce.presentation.viewmodel.MovieDetailViewModelFactory
+import com.example.movieintroduce.presentation.viewmodel.MovieFactory
 import com.example.movieintroduce.R
 import com.example.movieintroduce.presentation.adapter.MyLikeMovieAdapter
 import com.example.movieintroduce.databinding.ActivityMyLikeBinding
-import com.example.movieintroduce.data.db.Movie
+import com.example.movieintroduce.data.model.Movie
 import com.example.movieintroduce.data.db.MovieDatabase
 import com.example.movieintroduce.listener.ItemClickListener
 import com.example.movieintroduce.data.model.MovieRepository
@@ -30,9 +30,9 @@ class MyLikeActivity : AppCompatActivity() {
 
         val dao = MovieDatabase.getInstance(application).movieDAO
         val repository = MovieRepository(dao)
-        val factory = MovieDetailViewModelFactory(repository)
+//        val factory = MovieFactory(repository)
 
-        movieDetailViewModel = ViewModelProvider(this,factory).get(MovieDetailViewModel::class.java)
+//        movieDetailViewModel = ViewModelProvider(this,factory).get(MovieDetailViewModel::class.java)
     }
 
     override fun onResume() {

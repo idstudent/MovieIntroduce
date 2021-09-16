@@ -7,12 +7,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.movieintroduce.R
 import com.example.movieintroduce.databinding.ItemMovieBinding
-import com.example.movieintroduce.data.db.Movie
+import com.example.movieintroduce.data.model.Movie
 import com.example.movieintroduce.listener.ItemClickListener
 
 class MovieIntroduceAdapter(
         private val context : Context,
-        private val listItems : List<Movie>
+        private val listItems :List<Movie>
 ) : RecyclerView.Adapter<MovieIntroduceAdapter.MovieViewHolder>() {
 
     private lateinit var listener : ItemClickListener<Movie>
