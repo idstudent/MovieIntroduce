@@ -12,8 +12,10 @@ import com.example.movieintroduce.databinding.ActivityMovieDetailBinding
 import com.example.movieintroduce.data.model.Movie
 import com.example.movieintroduce.presentation.viewmodel.MovieDetailViewModel
 import com.example.movieintroduce.presentation.viewmodel.MovieFactory
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class MovieDetailActivity : AppCompatActivity() {
     @Inject
     lateinit var factory : MovieFactory
