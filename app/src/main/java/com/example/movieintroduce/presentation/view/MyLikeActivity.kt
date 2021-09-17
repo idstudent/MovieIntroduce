@@ -28,8 +28,8 @@ class MyLikeActivity : AppCompatActivity() {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_my_like)
 
-        val dao = MovieDatabase.getInstance(application).movieDAO
-        val repository = MovieRepository(dao)
+//        val dao = MovieDatabase.getInstance(application).movieDAO
+//        val repository = MovieRepository(dao)
 //        val factory = MovieFactory(repository)
 
 //        movieDetailViewModel = ViewModelProvider(this,factory).get(MovieDetailViewModel::class.java)

@@ -34,7 +34,6 @@ class MovieIntroduceViewModel(
                     introduceMovieList.postValue(Resource.Error(("인터넷 연결을 확인해주세요.")))
                 }
             }catch (e : Exception) {
-                Log.e("tag", "뭐냐 "+ e.message)
                 introduceMovieList.postValue(Resource.Error((e.message.toString())))
             }
         }

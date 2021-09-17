@@ -39,12 +39,8 @@ class MovieIntroduceActivity : AppCompatActivity() {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_movie_introduce)
 
-//        val dao = MovieDatabase.getInstance(application).movieDAO
-//        val repository = MovieRepository(dao)
-//        val factory = MovieFactory(repository)
-
         movieIntroduceViewModel = ViewModelProvider(this,factory).get(MovieIntroduceViewModel::class.java)
-//        movieDetailViewModel = ViewModelProvider(this,factory).get(MovieDetailViewModel::class.java)
+        movieDetailViewModel = ViewModelProvider(this,factory).get(MovieDetailViewModel::class.java)
 
         getMovieIntroduce()
 
@@ -58,7 +54,7 @@ class MovieIntroduceActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
 
-//        getLike()
+        getLike()
     }
     private fun getMovieIntroduce() {
         movieIntroduceViewModel.getIntroduceMovies(BuildConfig.api_key, "ko")
@@ -83,15 +79,15 @@ class MovieIntroduceActivity : AppCompatActivity() {
         })
     }
 
-    //    // 좋아요 체크
-//    private fun getLike() {
-//        movieDetailViewModel.getMovies().observe(this, Observer {
-//            movieIdList.clear()
-//            for(i in it.indices) {
-//                movieIdList.add(it[i].movieId)
-//            }
-//        })
-//    }
+    // 좋아요 체크
+    private fun getLike() {
+        movieDetailViewModel.getMovies().observe(this, Observer {
+            movieIdList.clear()
+            for(i in it.indices) {
+                movieIdList.add(it[i].movieId)
+            }
+        })
+    }
     private fun showMovieIntroduce(nowMoviesResponse: List<Movie>) {
 
         val movieRecycler = binding.movieRecycler

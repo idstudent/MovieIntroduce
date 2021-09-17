@@ -1,7 +1,10 @@
 package com.example.movieintroduce.presentation.di
 
 import android.app.Application
+import com.example.movieintroduce.domain.usecase.CancelLikeMovieUseCase
 import com.example.movieintroduce.domain.usecase.GetIntroduceMovieUseCase
+import com.example.movieintroduce.domain.usecase.GetLikeMovieUseCase
+import com.example.movieintroduce.domain.usecase.LikeMovieUseCase
 import com.example.movieintroduce.presentation.viewmodel.MovieFactory
 import dagger.Module
 import dagger.Provides
@@ -16,8 +19,16 @@ class FactoryModule {
     @Provides
     fun provideMovieViewModelFactory(
         application: Application,
-        getIntroduceMovieUseCase: GetIntroduceMovieUseCase
+        getIntroduceMovieUseCase: GetIntroduceMovieUseCase,
+        getLikeMovieUseCase: GetLikeMovieUseCase,
+        likeMovieUseCase: LikeMovieUseCase,
+        cancelLikeMovieUseCase: CancelLikeMovieUseCase
     ) : MovieFactory{
-        return MovieFactory(application, getIntroduceMovieUseCase)
+        return MovieFactory(
+            application,
+            getIntroduceMovieUseCase,
+            getLikeMovieUseCase,
+            likeMovieUseCase,
+            cancelLikeMovieUseCase)
     }
 }
