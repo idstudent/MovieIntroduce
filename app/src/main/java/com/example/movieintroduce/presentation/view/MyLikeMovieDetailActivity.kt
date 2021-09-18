@@ -14,8 +14,13 @@ import com.example.movieintroduce.data.model.Movie
 import com.example.movieintroduce.data.db.MovieDatabase
 import com.example.movieintroduce.data.model.MovieRepository
 import com.example.movieintroduce.presentation.viewmodel.MovieDetailViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class MyLikeMovieDetailActivity : AppCompatActivity() {
+    @Inject
+    lateinit var factory : MovieFactory
     private lateinit var binding : ActivityMyLikeMovieDetailBinding
     private lateinit var movieDetailViewModel: MovieDetailViewModel
 
@@ -23,11 +28,7 @@ class MyLikeMovieDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_my_like_movie_detail)
 
-//        val dao = MovieDatabase.getInstance(application).movieDAO
-//        val repository = MovieRepository(dao)
-//        val factory = MovieFactory(repository)
-
-//        movieDetailViewModel = ViewModelProvider(this,factory).get(MovieDetailViewModel::class.java)
+        movieDetailViewModel = ViewModelProvider(this,factory).get(MovieDetailViewModel::class.java)
         binding.movieViewModel = movieDetailViewModel
 
         if (supportActionBar != null) {
