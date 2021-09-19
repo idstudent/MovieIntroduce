@@ -24,8 +24,6 @@ class MovieIntroduceViewModel(
 
     fun getIntroduceMovies(apiKey : String, country : String): Job {
         return viewModelScope.launch {
-//            introduceMovieList.postValue(Resource.Loading())
-
             try{
                 if(isNetworkAvailable(application)) {
                     val response = getIntroduceMovieUseCase.execute(apiKey, country)

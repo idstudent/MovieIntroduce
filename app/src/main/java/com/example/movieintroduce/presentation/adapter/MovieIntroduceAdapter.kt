@@ -1,41 +1,50 @@
 package com.example.movieintroduce.presentation.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.AsyncListDiffer
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.movieintroduce.R
 import com.example.movieintroduce.databinding.ItemMovieBinding
 import com.example.movieintroduce.data.model.Movie
 import com.example.movieintroduce.listener.ItemClickListener
 
-class MovieIntroduceAdapter(
-        private val context : Context,
-        private val listItems :List<Movie>
-) : RecyclerView.Adapter<MovieIntroduceAdapter.MovieViewHolder>() {
+class MovieIntroduceAdapter : RecyclerView.Adapter<MovieIntroduceAdapter.MovieViewHolder>() {
 
     private lateinit var listener : ItemClickListener<Movie>
+
+    private val callback = object : DiffUtil.ItemCallback<Movie>() {
+        override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean {
+            return oldItem == newItem
+        }
+
+        override fun areContentsTheSame(oldItem: Movie, newItem: Movie): Boolean {
+            return oldItem == newItem
+        }
+    }
+    val differ = AsyncListDiffer(this, callback)
 
     fun itemClickListener(listener: ItemClickListener<Movie>) {
         this.listener = listener
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
-        val movieListItemBinding : ItemMovieBinding = DataBindingUtil.inflate(LayoutInflater.from(context)
-                , R.layout.item_movie, parent, false)
+        val movieListItemBinding : ItemMovieBinding =
+            DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.item_movie, parent, false)
 
         return MovieViewHolder(movieListItemBinding)
     }
 
     override fun getItemCount(): Int {
-        return listItems.size
+        return differ.currentList.size
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int)  {
-        holder.movieListItemBinding.movie = listItems[position]
+        holder.movieListItemBinding.movie = differ.currentList[position]
 
         holder.movieListItemBinding.root.setOnClickListener {
-            listener.onClick(listItems[position])
+            listener.onClick(differ.currentList[position])
         }
     }
     inner class MovieViewHolder(itemMovieBinding: ItemMovieBinding) : RecyclerView.ViewHolder(itemMovieBinding.root) {

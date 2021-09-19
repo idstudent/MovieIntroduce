@@ -24,11 +24,7 @@ class MovieDetailViewModel(
     fun likeMovieInsert(movie : Movie) : Job {
         return viewModelScope.launch {
             likeMovieUseCase.execute(movie)
-//            repository.insert(
-//                Movie(movie.movieId, movie.detailImg,movie.movieOverView,
-//                    movie.movieMainImg, movie.releaseDate, movie.movieTitle,
-//                    movie.movieGrade)
-//            )
+
             likeStatus.value = Event(true)
         }
     }
@@ -36,11 +32,7 @@ class MovieDetailViewModel(
     fun likeMovieDelete(movie : Movie) : Job {
         return viewModelScope.launch {
             cancelLikeMovieUseCase.execute(movie)
-//            repository.delete(
-//                Movie(movie.movieId, movie.detailImg,movie.movieOverView,
-//                    movie.movieMainImg, movie.releaseDate, movie.movieTitle,
-//                    movie.movieGrade)
-//            )
+
             likeStatus.value = Event(false)
         }
     }
@@ -49,9 +41,6 @@ class MovieDetailViewModel(
             getLikeMovieUseCase.execute().collect {
                 emit(it)
             }
-//            repository.movies.collect {
-//                emit(it)
-//            }
         }
     }
 }

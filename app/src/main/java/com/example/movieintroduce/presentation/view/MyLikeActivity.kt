@@ -54,11 +54,11 @@ class MyLikeActivity : AppCompatActivity() {
     }
     private fun showMyLikeMovies(nowMoviesResponse: List<Movie>) {
         val movieRecycler = binding.likeRecycler
-        adapter = MyLikeMovieAdapter(this@MyLikeActivity, nowMoviesResponse)
+        adapter = MyLikeMovieAdapter()
+        adapter.differ.submitList(nowMoviesResponse)
         adapter.itemClickListener(listener)
         movieRecycler.layoutManager = GridLayoutManager(this@MyLikeActivity, 2)
         movieRecycler.adapter = adapter
-        adapter.notifyDataSetChanged()
     }
     val listener = object : ItemClickListener<Movie> {
         override fun onClick(item: Movie) {
