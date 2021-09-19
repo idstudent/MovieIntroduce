@@ -27,8 +27,8 @@ import javax.inject.Inject
 class MovieIntroduceActivity : AppCompatActivity() {
     @Inject
     lateinit var factory : MovieFactory
-
-    private lateinit var adapter  : MovieIntroduceAdapter
+    @Inject
+    lateinit var adapter  : MovieIntroduceAdapter
     private lateinit var binding : ActivityMovieIntroduceBinding
     private lateinit var movieIntroduceViewModel: MovieIntroduceViewModel
     private lateinit var movieDetailViewModel: MovieDetailViewModel
@@ -89,9 +89,7 @@ class MovieIntroduceActivity : AppCompatActivity() {
         })
     }
     private fun showMovieIntroduce(nowMoviesResponse: List<Movie>) {
-
         val movieRecycler = binding.movieRecycler
-        adapter = MovieIntroduceAdapter()
         adapter.differ.submitList(nowMoviesResponse)
         adapter.itemClickListener(listener)
         movieRecycler.layoutManager = GridLayoutManager(this@MovieIntroduceActivity, 2)

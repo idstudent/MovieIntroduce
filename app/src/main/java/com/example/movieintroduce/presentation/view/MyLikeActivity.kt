@@ -24,7 +24,8 @@ class MyLikeActivity : AppCompatActivity() {
     @Inject
     lateinit var factory : MovieFactory
     private lateinit var movieDetailViewModel: MovieDetailViewModel
-    private lateinit var adapter  : MyLikeMovieAdapter
+    @Inject
+    lateinit var adapter  : MyLikeMovieAdapter
     private lateinit var binding : ActivityMyLikeBinding
     private var movieIdList = ArrayList<Int>()
 
