@@ -68,11 +68,11 @@ class MovieIntroduceActivity : AppCompatActivity() {
     }
     private fun showMovieIntroduce(nowMoviesResponse: List<Movie>) {
         val movieRecycler = binding.movieRecycler
-        adapter = MovieIntroduceAdapter(this@MovieIntroduceActivity, nowMoviesResponse)
+        adapter = MovieIntroduceAdapter()
+        adapter.differ.submitList(nowMoviesResponse)
         adapter.itemClickListener(listener)
         movieRecycler.layoutManager = GridLayoutManager(this@MovieIntroduceActivity, 2)
         movieRecycler.adapter = adapter
-        adapter.notifyDataSetChanged()
     }
     val listener = object : ItemClickListener<Movie> {
         override fun onClick(item: Movie) {
