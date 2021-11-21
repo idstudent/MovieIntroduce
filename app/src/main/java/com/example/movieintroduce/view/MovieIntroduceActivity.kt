@@ -2,10 +2,12 @@ package com.example.movieintroduce.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.paging.PagingData
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.movieintroduce.viewmodel.MovieDetailViewModelFactory
 import com.example.movieintroduce.R
@@ -13,6 +15,7 @@ import com.example.movieintroduce.adapter.MovieIntroduceAdapter
 import com.example.movieintroduce.databinding.ActivityMovieIntroduceBinding
 import com.example.movieintroduce.db.Movie
 import com.example.movieintroduce.db.MovieDatabase
+import com.example.movieintroduce.db.NowMoviesResponse
 import com.example.movieintroduce.listener.ItemClickListener
 import com.example.movieintroduce.model.MovieRepository
 import com.example.movieintroduce.viewmodel.MovieDetailViewModel
@@ -52,7 +55,7 @@ class MovieIntroduceActivity : AppCompatActivity() {
         getLike()
     }
     private fun getMovieIntroduce() {
-        movieIntroduceViewModel.getMovieIntroduces().observe(this, Observer<List<Movie>> { t ->
+        movieIntroduceViewModel.getMovieIntroduces().observe(this, Observer<PagingData<Movie>> { t ->
             showMovieIntroduce(t)
         })
     }
@@ -66,10 +69,10 @@ class MovieIntroduceActivity : AppCompatActivity() {
             }
         })
     }
-    private fun showMovieIntroduce(nowMoviesResponse: List<Movie>) {
+    private fun showMovieIntroduce(nowMoviesResponse: PagingData<Movie>) {
         val movieRecycler = binding.movieRecycler
         adapter = MovieIntroduceAdapter()
-        adapter.differ.submitList(nowMoviesResponse)
+        adapter.submitData(this.lifecycle, nowMoviesResponse)
         adapter.itemClickListener(listener)
         movieRecycler.layoutManager = GridLayoutManager(this@MovieIntroduceActivity, 2)
         movieRecycler.adapter = adapter
