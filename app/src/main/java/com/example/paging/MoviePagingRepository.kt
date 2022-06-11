@@ -5,8 +5,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.liveData
-import com.example.movieintroduce.db.Movie
-import com.example.movieintroduce.db.NowMoviesResponse
+import com.example.movieintroduce.model.Movie
 
 class MoviePagingRepository {
     fun getMoviePaging(): LiveData<PagingData<Movie>> {

@@ -1,12 +1,10 @@
 package com.example.paging
 
-import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.movieintroduce.BuildConfig
 import com.example.movieintroduce.api.ApiManager
-import com.example.movieintroduce.db.Movie
-import com.example.movieintroduce.db.NowMoviesResponse
+import com.example.movieintroduce.model.Movie
 import retrofit2.HttpException
 import java.io.IOException
 
@@ -15,7 +13,7 @@ class MoviePagingSource : PagingSource<Int, Movie>() {
         return try {
             val position = params.key ?: 1
 
-            val response = ApiManager.getInstance().getNowViewMoviesT(BuildConfig.api_key, "ko", position)
+            val response = ApiManager.getInstance().getNowViewMovies(BuildConfig.api_key, "ko", position)
 
             val body = response.body()?.movieInfoList
             LoadResult.Page(

@@ -1,6 +1,5 @@
 package com.example.movieintroduce.model
 
-import com.example.movieintroduce.db.Movie
 import com.example.movieintroduce.db.MovieDAO
 
 class MovieRepository(private val dao : MovieDAO) {

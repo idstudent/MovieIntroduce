@@ -1,18 +1,15 @@
 package com.example.movieintroduce.adapter
 
-import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.paging.PagingDataAdapter
-import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.movieintroduce.R
 import com.example.movieintroduce.databinding.ItemMovieBinding
-import com.example.movieintroduce.db.Movie
-import com.example.movieintroduce.db.NowMoviesResponse
+import com.example.movieintroduce.model.Movie
 import com.example.movieintroduce.listener.ItemClickListener
 
 class MovieIntroduceAdapter

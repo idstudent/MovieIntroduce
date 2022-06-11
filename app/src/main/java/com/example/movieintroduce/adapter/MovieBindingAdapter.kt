@@ -1,9 +1,7 @@
 package com.example.movieintroduce.adapter
 
-import android.util.Log
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
-import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
 object MovieBindingAdapter {

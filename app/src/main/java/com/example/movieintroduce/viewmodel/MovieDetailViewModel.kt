@@ -1,29 +1,29 @@
 package com.example.movieintroduce.viewmodel
 
-import android.app.Application
-import android.util.Log
 import androidx.lifecycle.*
 import com.example.movieintroduce.Event
-import com.example.movieintroduce.db.Movie
-import com.example.movieintroduce.db.MovieDatabase
+import com.example.movieintroduce.model.Movie
 import com.example.movieintroduce.model.MovieRepository
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class MovieDetailViewModel(private val repository: MovieRepository) : ViewModel() {
-    private var likeStatus = MutableLiveData<Event<Boolean>>()
+    private var _clickLikeStatus = MutableLiveData<Event<Boolean>>()
+    val clickLikeStatus : LiveData<Event<Boolean>> get() = _clickLikeStatus
 
-    val like : LiveData<Event<Boolean>>
-        get() = likeStatus
+    private var _enterLikeStatus = MutableLiveData<List<Movie>>()
+    val enterLikeStatus : LiveData<List<Movie>> get() = _enterLikeStatus
+
 
     fun likeMovieInsert(movie : Movie) : Job {
         return viewModelScope.launch {
             repository.insert(
                 Movie(movie.movieId, movie.detailImg,movie.movieOverView,
                     movie.movieMainImg, movie.releaseDate, movie.movieTitle,
-                    movie.movieGrade))
-            likeStatus.value = Event(true)
+                    movie.movieGrade)
+            )
+            _clickLikeStatus.value = Event(true)
         }
     }
 
@@ -32,15 +32,14 @@ class MovieDetailViewModel(private val repository: MovieRepository) : ViewModel(
             repository.delete(
                 Movie(movie.movieId, movie.detailImg,movie.movieOverView,
                     movie.movieMainImg, movie.releaseDate, movie.movieTitle,
-                    movie.movieGrade))
-            likeStatus.value = Event(false)
+                    movie.movieGrade)
+            )
+            _clickLikeStatus.value = Event(false)
         }
     }
-    fun getMovies() : LiveData<List<Movie>> {
-        return liveData {
-            repository.movies.collect {
-                emit(it)
-            }
+    suspend fun getMovies()  {
+        repository.movies.collect {
+            _enterLikeStatus.value = it
         }
     }
 }
