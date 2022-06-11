@@ -1,6 +1,5 @@
 package com.example.movieintroduce.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -10,16 +9,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.movieintroduce.R
 import com.example.movieintroduce.databinding.ItemMovieBinding
 import com.example.movieintroduce.model.Movie
-import com.example.movieintroduce.listener.ItemClickListener
 
-class MovieIntroduceAdapter
-    : PagingDataAdapter<Movie, MovieIntroduceAdapter.MovieViewHolder>(callback) {
+class MovieIntroduceAdapter(
+    private val listener : (item : Movie) -> Unit
+) : PagingDataAdapter<Movie, MovieIntroduceAdapter.MovieViewHolder>(callback) {
 
-    private lateinit var listener : ItemClickListener<Movie>
-
-    fun itemClickListener(listener: ItemClickListener<Movie>) {
-        this.listener = listener
-    }
 
     companion object {
         private val callback = object : DiffUtil.ItemCallback<Movie>() {
@@ -41,11 +35,10 @@ class MovieIntroduceAdapter
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int)  {
-        Log.e("ljy", "리스트? ${ getItem(position)}")
         holder.movieListItemBinding.movie = getItem(position)
 
         holder.movieListItemBinding.root.setOnClickListener {
-            getItem(position)?.let { it1 -> listener.onClick(it1) }
+            getItem(position)?.let { item -> listener.invoke(item)}
         }
     }
     inner class MovieViewHolder(itemMovieBinding: ItemMovieBinding) : RecyclerView.ViewHolder(itemMovieBinding.root) {

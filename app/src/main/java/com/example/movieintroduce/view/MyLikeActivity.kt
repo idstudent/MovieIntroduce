@@ -14,14 +14,20 @@ import com.example.movieintroduce.adapter.MyLikeMovieAdapter
 import com.example.movieintroduce.databinding.ActivityMyLikeBinding
 import com.example.movieintroduce.model.Movie
 import com.example.movieintroduce.db.MovieDatabase
-import com.example.movieintroduce.listener.ItemClickListener
 import com.example.movieintroduce.model.MovieRepository
 import com.example.movieintroduce.viewmodel.MovieDetailViewModel
 import kotlinx.coroutines.launch
 
 class MyLikeActivity : AppCompatActivity() {
     private lateinit var movieDetailViewModel: MovieDetailViewModel
-    private lateinit var adapter  : MyLikeMovieAdapter
+    private val adapter : MyLikeMovieAdapter by lazy {
+        MyLikeMovieAdapter { item ->
+            val intent = Intent(this@MyLikeActivity, MovieDetailActivity::class.java)
+            intent.putExtra("item", item)
+            startActivity(intent)
+        }
+    }
+
     private lateinit var binding : ActivityMyLikeBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,17 +59,8 @@ class MyLikeActivity : AppCompatActivity() {
 
     private fun showMyLikeMovies(nowMoviesResponse: List<Movie>) {
         val movieRecycler = binding.likeRecycler
-        adapter = MyLikeMovieAdapter()
         adapter.differ.submitList(nowMoviesResponse)
-        adapter.itemClickListener(listener)
         movieRecycler.layoutManager = GridLayoutManager(this@MyLikeActivity, 2)
         movieRecycler.adapter = adapter
-    }
-    val listener = object : ItemClickListener<Movie> {
-        override fun onClick(item: Movie) {
-            val intent = Intent(this@MyLikeActivity, MovieDetailActivity::class.java)
-            intent.putExtra("item", item)
-            startActivity(intent)
-        }
     }
 }
