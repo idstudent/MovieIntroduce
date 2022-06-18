@@ -5,7 +5,12 @@ import androidx.paging.PagingState
 import com.example.movieintroduce.BuildConfig
 import com.example.movieintroduce.api.ApiManager
 import com.example.movieintroduce.model.Movie
+import com.example.movieintroduce.model.MovieRepository
+import com.example.movieintroduce.model.NowMoviesResponse
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.count
 import retrofit2.HttpException
+import retrofit2.Response
 import java.io.IOException
 
 class MoviePagingSource : PagingSource<Int, Movie>() {
@@ -13,11 +18,16 @@ class MoviePagingSource : PagingSource<Int, Movie>() {
         return try {
             val position = params.key ?: 1
 
-            val response = ApiManager.getInstance().getNowViewMovies(BuildConfig.api_key, "ko", position)
+            val response = MovieRepository().getMovies(position)
 
-            val body = response.body()?.movieInfoList
+            var result : ArrayList<Movie> = ArrayList()
+            response.collect {
+                it.body()?.let { movie ->
+                    result = movie.movieInfoList
+                }
+            }
             LoadResult.Page(
-                data = body!!,
+                data = result,
                 prevKey = if(position == 1) null else position - 1,
                 nextKey = position + 1
             )

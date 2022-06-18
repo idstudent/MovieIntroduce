@@ -13,7 +13,9 @@
         android:theme="@style/Theme.MovieIntroduce">
         <activity android:name=".view.MyLikeActivity"/>
         <activity android:name=".view.MovieDetailActivity" />
-        <activity android:name=".view.MovieIntroduceActivity">
+        <activity
+            android:exported="true"
+            android:name=".view.MovieIntroduceActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

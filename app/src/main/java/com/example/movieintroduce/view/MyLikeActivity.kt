@@ -14,7 +14,7 @@ import com.example.movieintroduce.adapter.MyLikeMovieAdapter
 import com.example.movieintroduce.databinding.ActivityMyLikeBinding
 import com.example.movieintroduce.model.Movie
 import com.example.movieintroduce.db.MovieDatabase
-import com.example.movieintroduce.model.MovieRepository
+import com.example.movieintroduce.model.MovieDBRepository
 import com.example.movieintroduce.viewmodel.MovieDetailViewModel
 import kotlinx.coroutines.launch
 
@@ -36,7 +36,7 @@ class MyLikeActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_my_like)
 
         val dao = MovieDatabase.getInstance(application).movieDAO
-        val repository = MovieRepository(dao)
+        val repository = MovieDBRepository(dao)
         val factory = MovieDetailViewModelFactory(repository)
 
         movieDetailViewModel = ViewModelProvider(this,factory).get(MovieDetailViewModel::class.java)

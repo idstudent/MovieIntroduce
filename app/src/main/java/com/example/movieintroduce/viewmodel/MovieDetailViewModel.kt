@@ -3,12 +3,12 @@ package com.example.movieintroduce.viewmodel
 import androidx.lifecycle.*
 import com.example.movieintroduce.Event
 import com.example.movieintroduce.model.Movie
-import com.example.movieintroduce.model.MovieRepository
+import com.example.movieintroduce.model.MovieDBRepository
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
-class MovieDetailViewModel(private val repository: MovieRepository) : ViewModel() {
+class MovieDetailViewModel(private val repository: MovieDBRepository) : ViewModel() {
     private var _clickLikeStatus = MutableLiveData<Event<Boolean>>()
     val clickLikeStatus : LiveData<Event<Boolean>> get() = _clickLikeStatus
 
