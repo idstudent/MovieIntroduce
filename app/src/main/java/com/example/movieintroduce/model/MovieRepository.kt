@@ -11,7 +11,7 @@ class MovieRepository {
         return flow {
             val data = ApiManager
                 .getInstance()
-                .getNowViewMovies(BuildConfig.api_key, "ko", position)
+                .getNowViewMovies("apk_key", "ko", position)
             emit(data)
         }
     }
