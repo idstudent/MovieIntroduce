@@ -1,6 +1,5 @@
 package com.example.movieintroduce.model
 
-import com.example.movieintroduce.BuildConfig
 import com.example.movieintroduce.api.ApiManager
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -11,7 +10,7 @@ class MovieRepository {
         return flow {
             val data = ApiManager
                 .getInstance()
-                .getNowViewMovies("apk_key", "ko", position)
+                .getNowViewMovies("api_key", "ko", position)
             emit(data)
         }
     }

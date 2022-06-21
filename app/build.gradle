@@ -92,4 +92,8 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-viewmodel-compose:2.4.1'
 
     implementation 'androidx.paging:paging-compose:1.0.0-alpha15'
+
+    implementation "androidx.compose.ui:ui:1.1.1"
+    implementation 'io.coil-kt:coil-compose:2.1.0' // compose image url 이미지 뿌려주기 위함
+
 }

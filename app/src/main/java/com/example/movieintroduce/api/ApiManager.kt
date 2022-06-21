@@ -11,7 +11,7 @@ object ApiManager {
     fun getInstance() : ApiService {
         if(!::instance.isInitialized) {
             instance = Retrofit.Builder()
-                .baseUrl("https://api.themoviedb.org/3/")
+                .baseUrl(ApiService.BASE_URL)
                 .client(
                     OkHttpClient.Builder()
                         .addInterceptor(HttpLoggingInterceptor().apply {
