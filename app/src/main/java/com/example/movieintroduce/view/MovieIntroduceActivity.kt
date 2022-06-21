@@ -2,7 +2,6 @@ package com.example.movieintroduce.view
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.*
@@ -14,15 +13,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModelProvider
 import androidx.paging.PagingData
@@ -31,9 +26,7 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import coil.compose.rememberAsyncImagePainter
 import com.example.movieintroduce.R
 import com.example.movieintroduce.viewmodel.MovieDetailViewModelFactory
-import com.example.movieintroduce.adapter.MovieIntroduceAdapter
 import com.example.movieintroduce.api.ApiService
-import com.example.movieintroduce.databinding.ActivityMovieIntroduceBinding
 import com.example.movieintroduce.model.Movie
 import com.example.movieintroduce.db.MovieDatabase
 import com.example.movieintroduce.model.MovieDBRepository
