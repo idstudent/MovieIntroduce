@@ -14,9 +14,10 @@ class MoviePagingSource : PagingSource<Int, Movie>() {
 
             val response = ApiManager.getInstance().getNowViewMovies("api_key", "ko", position)
 
-            val body = response.body()?.movieInfoList
+            val body = response.body()?.movieInfoList ?: ArrayList()
+
             LoadResult.Page(
-                data = body!!,
+                data = body,
                 prevKey = if(position == 1) null else position - 1,
                 nextKey = position + 1
             )
