@@ -1,5 +1,6 @@
 package com.example.movieintroduce.di
 
+import com.example.movieintroduce.api.ApiService
 import com.example.movieintroduce.repository.MoviePagingRepository
 import dagger.Module
 import dagger.Provides
@@ -12,7 +13,7 @@ import javax.inject.Singleton
 class ModuleMovieRepository {
     @Singleton
     @Provides
-    fun provideMoviePagingRepository() : MoviePagingRepository {
-        return MoviePagingRepository()
+    fun provideMoviePagingRepository(apiService: ApiService) : MoviePagingRepository {
+        return MoviePagingRepository(apiService)
     }
 }

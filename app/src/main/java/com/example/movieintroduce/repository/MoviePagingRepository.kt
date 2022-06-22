@@ -5,9 +5,12 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.liveData
+import com.example.movieintroduce.api.ApiService
 import com.example.movieintroduce.model.Movie
 
-class MoviePagingRepository {
+class MoviePagingRepository(
+    private val apiService: ApiService
+) {
     fun getMoviePaging(): LiveData<PagingData<Movie>> {
         return Pager(
             config = PagingConfig(
@@ -15,7 +18,7 @@ class MoviePagingRepository {
                 maxSize = 20,
                 enablePlaceholders = false
             ),
-            pagingSourceFactory = { MoviePagingSource() }
+            pagingSourceFactory = { MoviePagingSource(apiService) }
         ).liveData
     }
 }

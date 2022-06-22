@@ -2,17 +2,19 @@ package com.example.movieintroduce.repository
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.example.movieintroduce.api.ApiManager
+import com.example.movieintroduce.api.ApiService
 import com.example.movieintroduce.model.Movie
 import retrofit2.HttpException
 import java.io.IOException
 
-class MoviePagingSource : PagingSource<Int, Movie>() {
+class MoviePagingSource(
+   private val apiService: ApiService
+) : PagingSource<Int, Movie>() {
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Movie> {
         return try {
             val position = params.key ?: 1
 
-            val response = ApiManager.getInstance().getNowViewMovies("api_key", "ko", position)
+            val response = apiService.getNowViewMovies("api_key", "ko", position)
 
             val body = response.body()?.movieInfoList ?: ArrayList()
 
