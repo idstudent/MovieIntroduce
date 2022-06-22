@@ -15,7 +15,10 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class MyLikeActivity : AppCompatActivity() {
+class MyLikeActivity : BaseActivity<ActivityMyLikeBinding>() {
+    override val layoutId: Int
+        get() = R.layout.activity_my_like
+
     private val movieDetailViewModel: MovieDetailViewModel by viewModels()
     private val adapter : MyLikeMovieAdapter by lazy {
         MyLikeMovieAdapter { item ->
@@ -25,26 +28,21 @@ class MyLikeActivity : AppCompatActivity() {
         }
     }
 
-    private lateinit var binding : ActivityMyLikeBinding
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_my_like)
+    override fun initView() {
+        super.initView()
 
         binding.run {
             likeRecycler.layoutManager = GridLayoutManager(this@MyLikeActivity, 2)
             likeRecycler.adapter = adapter
         }
+    }
+    override fun initViewModel() {
+        super.initViewModel()
 
         lifecycleScope.launch {
             movieDetailViewModel.getMovies()
         }
 
-        movieDataShow()
-    }
-
-    private fun movieDataShow() {
         movieDetailViewModel.enterLikeStatus.observe(this) {
             adapter.differ.submitList(it)
         }

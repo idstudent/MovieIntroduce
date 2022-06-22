@@ -20,7 +20,9 @@ import com.example.movieintroduce.viewmodel.MovieIntroduceViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MovieIntroduceActivity : AppCompatActivity() {
+class MovieIntroduceActivity : BaseActivity<ActivityMovieIntroduceBinding>() {
+    override val layoutId: Int
+        get() = R.layout.activity_movie_introduce
     private val adapter: MovieIntroduceAdapter by lazy {
         MovieIntroduceAdapter { item ->
             val intent = Intent(this@MovieIntroduceActivity, MovieDetailActivity::class.java)
@@ -29,40 +31,41 @@ class MovieIntroduceActivity : AppCompatActivity() {
         }
     }
 
-    private lateinit var binding: ActivityMovieIntroduceBinding
     private val movieIntroduceViewModel: MovieIntroduceViewModel by viewModels()
 
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_movie_introduce)
+    override fun initView() {
+        super.initView()
 
         binding.run {
             movieRecycler.layoutManager = GridLayoutManager(this@MovieIntroduceActivity, 2)
             movieRecycler.adapter = adapter
         }
-
-        getMovieIntroduce()
-
-        binding.swipeLayout.setOnRefreshListener {
-            getMovieIntroduce()
-            binding.swipeLayout.isRefreshing = false
-        }
-        onClick()
     }
 
+    override fun initListener() {
+        super.initListener()
+
+        binding. run {
+            swipeLayout.setOnRefreshListener {
+                getMovieIntroduce()
+                swipeLayout.isRefreshing = false
+            }
+            likeShowBtn.setOnClickListener {
+                val intent = Intent(this@MovieIntroduceActivity, MyLikeActivity::class.java)
+                startActivity(intent)
+            }
+        }
+    }
+
+    override fun initViewModel() {
+        super.initViewModel()
+
+        getMovieIntroduce()
+    }
     private fun getMovieIntroduce() {
         movieIntroduceViewModel.getMovieIntroduces()
             .observe(this) {
                 adapter.submitData(this.lifecycle, it)
             }
-    }
-
-    private fun onClick() {
-        binding.likeShowBtn.setOnClickListener {
-            val intent = Intent(this@MovieIntroduceActivity, MyLikeActivity::class.java)
-            startActivity(intent)
-        }
     }
 }

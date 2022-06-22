@@ -1,11 +1,8 @@
 package com.example.movieintroduce.view
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.widget.Toolbar
-import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.example.movieintroduce.R
@@ -16,29 +13,19 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class MovieDetailActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityMovieDetailBinding
+class MovieDetailActivity : BaseActivity<ActivityMovieDetailBinding>() {
+    override val layoutId: Int
+        get() = R.layout.activity_movie_detail
+
     private val movieDetailViewModel: MovieDetailViewModel by viewModels()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_movie_detail)
+    override fun initView() {
+        super.initView()
 
-        binding.movieViewModel = movieDetailViewModel
         if (supportActionBar != null) {
             supportActionBar?.setDisplayHomeAsUpEnabled(false)
         }
 
-        lifecycleScope.launch {
-            movieDetailViewModel.getMovies()
-        }
-
-        movieDataShow()
-        setLikeStatus()
-    }
-
-    private fun movieDataShow() {
-        val intent = intent
         val movieData = intent.getSerializableExtra("item") as Movie
 
         val toolbar = findViewById<View>(R.id.toolbar) as Toolbar
@@ -46,11 +33,20 @@ class MovieDetailActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         binding.movie = movieData
+        binding.movieViewModel = movieDetailViewModel
+
+        lifecycleScope.launch {
+            movieDetailViewModel.getMovies()
+        }
+    }
+
+    override fun initViewModel() {
+        super.initViewModel()
 
         movieDetailViewModel.enterLikeStatus.observe(this, Observer {
             run loop@{
                 it.map {
-                    if (movieData.movieId == it.movieId) {
+                    if (binding.movie?.movieId == it.movieId) {
                         movieRememberBtn(true)
                         return@loop
                     } else {
@@ -59,9 +55,7 @@ class MovieDetailActivity : AppCompatActivity() {
                 }
             }
         })
-    }
 
-    private fun setLikeStatus() {
         movieDetailViewModel.clickLikeStatus.observe(this, Observer {
             it.getContentIfNotHandled()?.let { status ->
                 if (status) {
