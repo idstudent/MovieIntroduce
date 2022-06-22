@@ -38,6 +38,11 @@ class MovieIntroduceActivity : AppCompatActivity() {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_movie_introduce)
 
+        binding.run {
+            movieRecycler.layoutManager = GridLayoutManager(this@MovieIntroduceActivity, 2)
+            movieRecycler.adapter = adapter
+        }
+
         getMovieIntroduce()
 
         binding.swipeLayout.setOnRefreshListener {
@@ -49,16 +54,9 @@ class MovieIntroduceActivity : AppCompatActivity() {
 
     private fun getMovieIntroduce() {
         movieIntroduceViewModel.getMovieIntroduces()
-            .observe(this) { t ->
-                showMovieIntroduce(t)
+            .observe(this) {
+                adapter.submitData(this.lifecycle, it)
             }
-    }
-
-    private fun showMovieIntroduce(nowMoviesResponse: PagingData<Movie>) {
-        val movieRecycler = binding.movieRecycler
-        adapter.submitData(this.lifecycle, nowMoviesResponse)
-        movieRecycler.layoutManager = GridLayoutManager(this@MovieIntroduceActivity, 2)
-        movieRecycler.adapter = adapter
     }
 
     private fun onClick() {
