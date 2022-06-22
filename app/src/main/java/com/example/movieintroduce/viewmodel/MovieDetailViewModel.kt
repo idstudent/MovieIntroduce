@@ -18,22 +18,14 @@ class MovieDetailViewModel(private val repository: MovieRepository) : ViewModel(
 
     fun likeMovieInsert(movie : Movie) : Job {
         return viewModelScope.launch {
-            repository.insert(
-                Movie(movie.movieId, movie.detailImg,movie.movieOverView,
-                    movie.movieMainImg, movie.releaseDate, movie.movieTitle,
-                    movie.movieGrade)
-            )
+            repository.insert(movie)
             _clickLikeStatus.value = Event(true)
         }
     }
 
     fun likeMovieDelete(movie : Movie) : Job {
         return viewModelScope.launch {
-            repository.delete(
-                Movie(movie.movieId, movie.detailImg,movie.movieOverView,
-                    movie.movieMainImg, movie.releaseDate, movie.movieTitle,
-                    movie.movieGrade)
-            )
+            repository.delete(movie)
             _clickLikeStatus.value = Event(false)
         }
     }

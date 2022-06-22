@@ -41,6 +41,11 @@ class MyLikeActivity : AppCompatActivity() {
 
         movieDetailViewModel = ViewModelProvider(this,factory).get(MovieDetailViewModel::class.java)
 
+        binding.run {
+            likeRecycler.layoutManager = GridLayoutManager(this@MyLikeActivity, 2)
+            likeRecycler.adapter = adapter
+        }
+
         movieDataShow()
     }
 
@@ -53,14 +58,7 @@ class MyLikeActivity : AppCompatActivity() {
     }
     private fun movieDataShow() {
         movieDetailViewModel.enterLikeStatus.observe(this, Observer {
-            showMyLikeMovies(it)
+            adapter.differ.submitList(it)
         })
-    }
-
-    private fun showMyLikeMovies(nowMoviesResponse: List<Movie>) {
-        val movieRecycler = binding.likeRecycler
-        adapter.differ.submitList(nowMoviesResponse)
-        movieRecycler.layoutManager = GridLayoutManager(this@MyLikeActivity, 2)
-        movieRecycler.adapter = adapter
     }
 }

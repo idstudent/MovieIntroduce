@@ -44,27 +44,26 @@ class MovieIntroduceActivity : AppCompatActivity() {
         movieDetailViewModel =
             ViewModelProvider(this, factory).get(MovieDetailViewModel::class.java)
 
-        getMovieIntroduce()
+
+        binding.run {
+            movieRecycler.layoutManager = GridLayoutManager(this@MovieIntroduceActivity, 2)
+            movieRecycler.adapter = adapter
+        }
 
         binding.swipeLayout.setOnRefreshListener {
             getMovieIntroduce()
             binding.swipeLayout.isRefreshing = false
         }
+
+        getMovieIntroduce()
         onClick()
     }
 
     private fun getMovieIntroduce() {
         movieIntroduceViewModel.getMovieIntroduces()
-            .observe(this, Observer<PagingData<Movie>> { t ->
-                showMovieIntroduce(t)
+            .observe(this, Observer {
+                adapter.submitData(this.lifecycle, it)
             })
-    }
-
-    private fun showMovieIntroduce(nowMoviesResponse: PagingData<Movie>) {
-        val movieRecycler = binding.movieRecycler
-        adapter.submitData(this.lifecycle, nowMoviesResponse)
-        movieRecycler.layoutManager = GridLayoutManager(this@MovieIntroduceActivity, 2)
-        movieRecycler.adapter = adapter
     }
 
     private fun onClick() {
