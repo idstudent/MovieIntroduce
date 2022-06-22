@@ -12,9 +12,8 @@ import com.example.movieintroduce.viewmodel.MovieDetailViewModelFactory
 import com.example.movieintroduce.R
 import com.example.movieintroduce.adapter.MyLikeMovieAdapter
 import com.example.movieintroduce.databinding.ActivityMyLikeBinding
-import com.example.movieintroduce.model.Movie
 import com.example.movieintroduce.db.MovieDatabase
-import com.example.movieintroduce.model.MovieRepository
+import com.example.movieintroduce.repository.MovieRepository
 import com.example.movieintroduce.viewmodel.MovieDetailViewModel
 import kotlinx.coroutines.launch
 

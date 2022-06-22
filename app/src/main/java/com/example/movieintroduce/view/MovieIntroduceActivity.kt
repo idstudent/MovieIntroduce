@@ -6,15 +6,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.paging.PagingData
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.movieintroduce.viewmodel.MovieDetailViewModelFactory
 import com.example.movieintroduce.R
 import com.example.movieintroduce.adapter.MovieIntroduceAdapter
 import com.example.movieintroduce.databinding.ActivityMovieIntroduceBinding
-import com.example.movieintroduce.model.Movie
 import com.example.movieintroduce.db.MovieDatabase
-import com.example.movieintroduce.model.MovieRepository
+import com.example.movieintroduce.repository.MovieRepository
 import com.example.movieintroduce.viewmodel.MovieDetailViewModel
 import com.example.movieintroduce.viewmodel.MovieIntroduceViewModel
 
