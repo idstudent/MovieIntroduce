@@ -34,7 +34,7 @@
                     android:layout_height="0dp"
                     app:layout_constraintDimensionRatio="100:100"
                     android:scaleType="fitXY"
-                    app:mainImg="@{movie.movieMainImg}"
+                    app:movieImg="@{movie.movieMainImg}"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"/>

@@ -57,12 +57,10 @@ class MovieDetailActivity : AppCompatActivity() {
             run loop@{
                 it.map {
                     if (movieData.movieId == it.movieId) {
-                        binding.movieRememberBtn.visibility = View.VISIBLE
-                        binding.movieNoRememberBtn.visibility = View.INVISIBLE
+                        movieRememberBtn(true)
                         return@loop
                     } else {
-                        binding.movieRememberBtn.visibility = View.INVISIBLE
-                        binding.movieNoRememberBtn.visibility = View.VISIBLE
+                        movieRememberBtn(false)
                     }
                 }
             }
@@ -73,13 +71,20 @@ class MovieDetailActivity : AppCompatActivity() {
         movieDetailViewModel.clickLikeStatus.observe(this, Observer {
             it.getContentIfNotHandled()?.let { status ->
                 if (status) {
-                    binding.movieNoRememberBtn.visibility = View.INVISIBLE
-                    binding.movieRememberBtn.visibility = View.VISIBLE
+                    movieRememberBtn(true)
                 } else {
-                    binding.movieNoRememberBtn.visibility = View.VISIBLE
-                    binding.movieRememberBtn.visibility = View.INVISIBLE
+                    movieRememberBtn(false)
                 }
             }
         })
+    }
+    private fun movieRememberBtn(remember : Boolean) {
+        if(remember) {
+            binding.movieRememberBtn.visibility = View.VISIBLE
+            binding.movieNoRememberBtn.visibility = View.INVISIBLE
+        }else {
+            binding.movieRememberBtn.visibility = View.INVISIBLE
+            binding.movieNoRememberBtn.visibility = View.VISIBLE
+        }
     }
 }

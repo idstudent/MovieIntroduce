@@ -10,7 +10,6 @@ import kotlinx.coroutines.flow.Flow
 
 class MovieIntroduceViewModel : ViewModel() {
     fun getMovieIntroduces() : Flow<PagingData<Movie>> {
-//        return moviePagingRepository.getMoviePaging()
         return Pager(PagingConfig(pageSize = 20)) {
             MoviePagingSource()
         }.flow
