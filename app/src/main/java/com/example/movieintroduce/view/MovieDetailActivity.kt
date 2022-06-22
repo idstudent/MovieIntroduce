@@ -7,14 +7,10 @@ import androidx.activity.viewModels
 import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import com.example.movieintroduce.viewmodel.MovieDetailViewModelFactory
 import com.example.movieintroduce.R
 import com.example.movieintroduce.databinding.ActivityMovieDetailBinding
 import com.example.movieintroduce.model.Movie
-import com.example.movieintroduce.db.MovieDatabase
-import com.example.movieintroduce.model.MovieDBRepository
 import com.example.movieintroduce.viewmodel.MovieDetailViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch

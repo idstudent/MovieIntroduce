@@ -11,7 +11,7 @@ import com.example.movieintroduce.databinding.ItemMovieBinding
 import com.example.movieintroduce.model.Movie
 
 class MovieIntroduceAdapter(
-    private val listener : (item : Movie) -> Unit
+    private val listener: (item: Movie) -> Unit
 ) : PagingDataAdapter<Movie, MovieIntroduceAdapter.MovieViewHolder>(callback) {
 
 
@@ -28,21 +28,34 @@ class MovieIntroduceAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
-        val movieListItemBinding : ItemMovieBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.context)
-                , R.layout.item_movie, parent, false)
+        val movieListItemBinding: ItemMovieBinding = DataBindingUtil.inflate(
+            LayoutInflater.from(parent.context), R.layout.item_movie, parent, false
+        )
 
         return MovieViewHolder(movieListItemBinding)
     }
 
-    override fun onBindViewHolder(holder: MovieViewHolder, position: Int)  {
-        holder.movieListItemBinding.movie = getItem(position)
-
-        holder.movieListItemBinding.root.setOnClickListener {
-            getItem(position)?.let { item -> listener.invoke(item)}
-        }
+    override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
+        getItem(position)?.let { holder.onBind(it) }
     }
-    inner class MovieViewHolder(itemMovieBinding: ItemMovieBinding) : RecyclerView.ViewHolder(itemMovieBinding.root) {
-        var movieListItemBinding : ItemMovieBinding = itemMovieBinding
+
+    inner class MovieViewHolder(
+        private val binding: ItemMovieBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
+        init {
+            binding.root.setOnClickListener {
+                binding.movie?.let {
+                    listener.invoke(it)
+                }
+
+
+            }
+        }
+
+        fun onBind(item: Movie) {
+            binding.movie = item
+        }
+
     }
 
 }
