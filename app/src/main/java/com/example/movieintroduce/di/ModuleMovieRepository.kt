@@ -1,6 +1,6 @@
 package com.example.movieintroduce.di
 
-import com.example.movieintroduce.paging.MoviePagingRepository
+import com.example.movieintroduce.repository.MoviePagingRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

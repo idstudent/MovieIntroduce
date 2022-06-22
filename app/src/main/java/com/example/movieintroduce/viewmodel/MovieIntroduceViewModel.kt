@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.paging.PagingData
 import com.example.movieintroduce.model.Movie
-import com.example.movieintroduce.paging.MoviePagingRepository
+import com.example.movieintroduce.repository.MoviePagingRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

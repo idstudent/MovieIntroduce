@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import com.example.movieintroduce.db.MovieDAO
 import com.example.movieintroduce.db.MovieDatabase
-import com.example.movieintroduce.model.MovieDBRepository
+import com.example.movieintroduce.repository.MovieDBRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -33,7 +33,7 @@ class ModuleMovieDatabase() {
 
     @Singleton
     @Provides
-    fun provideMovieDBRepository(movieDAO: MovieDAO) : MovieDBRepository{
+    fun provideMovieDBRepository(movieDAO: MovieDAO) : MovieDBRepository {
         return MovieDBRepository(movieDAO)
     }
 }
