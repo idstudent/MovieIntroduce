@@ -4,11 +4,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.paging.PagingData
 import com.example.movieintroduce.model.Movie
-import com.example.paging.MoviePagingRepository
+import com.example.movieintroduce.paging.MoviePagingRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class MovieIntroduceViewModel : ViewModel() {
-    private var moviePagingRepository = MoviePagingRepository()
-
+@HiltViewModel
+class MovieIntroduceViewModel @Inject constructor(
+    private val moviePagingRepository: MoviePagingRepository
+) : ViewModel() {
     fun getMovieIntroduces() : LiveData<PagingData<Movie>>{
         return moviePagingRepository.getMoviePaging()
     }

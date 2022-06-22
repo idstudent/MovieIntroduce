@@ -2,7 +2,7 @@ package com.example.movieintroduce.model
 
 import com.example.movieintroduce.db.MovieDAO
 
-class MovieRepository(private val dao : MovieDAO) {
+class MovieDBRepository(private val dao : MovieDAO) {
     val movies = dao.selectMovies()
 
     suspend fun insert(movie : Movie) {

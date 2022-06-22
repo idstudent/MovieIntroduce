@@ -3,6 +3,7 @@ package com.example.movieintroduce.view
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.activity.viewModels
 import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -13,22 +14,19 @@ import com.example.movieintroduce.R
 import com.example.movieintroduce.databinding.ActivityMovieDetailBinding
 import com.example.movieintroduce.model.Movie
 import com.example.movieintroduce.db.MovieDatabase
-import com.example.movieintroduce.model.MovieRepository
+import com.example.movieintroduce.model.MovieDBRepository
 import com.example.movieintroduce.viewmodel.MovieDetailViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class MovieDetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMovieDetailBinding
-    private lateinit var movieDetailViewModel: MovieDetailViewModel
+    private val movieDetailViewModel: MovieDetailViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_movie_detail)
-        val dao = MovieDatabase.getInstance(application).movieDAO
-        val repository = MovieRepository(dao)
-        val factory = MovieDetailViewModelFactory(repository)
-        movieDetailViewModel =
-            ViewModelProvider(this, factory).get(MovieDetailViewModel::class.java)
 
         binding.movieViewModel = movieDetailViewModel
         if (supportActionBar != null) {
@@ -57,12 +55,10 @@ class MovieDetailActivity : AppCompatActivity() {
             run loop@{
                 it.map {
                     if (movieData.movieId == it.movieId) {
-                        binding.movieRememberBtn.visibility = View.VISIBLE
-                        binding.movieNoRememberBtn.visibility = View.INVISIBLE
+                        movieRememberBtn(true)
                         return@loop
                     } else {
-                        binding.movieRememberBtn.visibility = View.INVISIBLE
-                        binding.movieNoRememberBtn.visibility = View.VISIBLE
+                        movieRememberBtn(false)
                     }
                 }
             }
@@ -73,13 +69,21 @@ class MovieDetailActivity : AppCompatActivity() {
         movieDetailViewModel.clickLikeStatus.observe(this, Observer {
             it.getContentIfNotHandled()?.let { status ->
                 if (status) {
-                    binding.movieNoRememberBtn.visibility = View.INVISIBLE
-                    binding.movieRememberBtn.visibility = View.VISIBLE
+                    movieRememberBtn(true)
                 } else {
-                    binding.movieNoRememberBtn.visibility = View.VISIBLE
-                    binding.movieRememberBtn.visibility = View.INVISIBLE
+                    movieRememberBtn(false)
                 }
             }
         })
+    }
+
+    private fun movieRememberBtn(remember : Boolean) {
+        if(remember) {
+            binding.movieRememberBtn.visibility = View.VISIBLE
+            binding.movieNoRememberBtn.visibility = View.INVISIBLE
+        }else {
+            binding.movieRememberBtn.visibility = View.INVISIBLE
+            binding.movieNoRememberBtn.visibility = View.VISIBLE
+        }
     }
 }
