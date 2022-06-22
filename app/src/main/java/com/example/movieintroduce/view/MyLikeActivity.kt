@@ -16,7 +16,7 @@ import com.example.movieintroduce.model.Movie
 import com.example.movieintroduce.db.MovieDatabase
 import com.example.movieintroduce.model.MovieDBRepository
 import com.example.movieintroduce.viewmodel.MovieDetailViewModel
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.launch 
 
 class MyLikeActivity : AppCompatActivity() {
     private lateinit var movieDetailViewModel: MovieDetailViewModel
