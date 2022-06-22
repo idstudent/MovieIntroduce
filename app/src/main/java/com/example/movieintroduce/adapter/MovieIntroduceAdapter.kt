@@ -29,20 +29,28 @@ class MovieIntroduceAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         val movieListItemBinding : ItemMovieBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.context)
-                , R.layout.item_movie, parent, false)
+            , R.layout.item_movie, parent, false)
 
         return MovieViewHolder(movieListItemBinding)
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int)  {
-        holder.movieListItemBinding.movie = getItem(position)
-
-        holder.movieListItemBinding.root.setOnClickListener {
-            getItem(position)?.let { item -> listener.invoke(item)}
-        }
+        holder.onBind(getItem(position))
     }
-    inner class MovieViewHolder(itemMovieBinding: ItemMovieBinding) : RecyclerView.ViewHolder(itemMovieBinding.root) {
-        var movieListItemBinding : ItemMovieBinding = itemMovieBinding
+    inner class MovieViewHolder(
+        private val binding: ItemMovieBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
+        init {
+            binding.root.setOnClickListener {
+                getItem(bindingAdapterPosition)?.let { item ->
+                    listener.invoke(item)
+                }
+            }
+        }
+        fun onBind(item: Movie?) {
+            binding.movie = item
+        }
+
     }
 
 }
