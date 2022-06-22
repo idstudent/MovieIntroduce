@@ -1,16 +1,10 @@
-package com.example.paging
+package com.example.movieintroduce.repository
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.example.movieintroduce.BuildConfig
-import com.example.movieintroduce.api.ApiManager
 import com.example.movieintroduce.model.Movie
-import com.example.movieintroduce.model.MovieRepository
-import com.example.movieintroduce.model.NowMoviesResponse
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.count
 import retrofit2.HttpException
-import retrofit2.Response
 import java.io.IOException
 
 class MoviePagingSource : PagingSource<Int, Movie>() {

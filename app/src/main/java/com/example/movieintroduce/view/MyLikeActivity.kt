@@ -4,7 +4,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
@@ -12,9 +11,8 @@ import com.example.movieintroduce.viewmodel.MovieDetailViewModelFactory
 import com.example.movieintroduce.R
 import com.example.movieintroduce.adapter.MyLikeMovieAdapter
 import com.example.movieintroduce.databinding.ActivityMyLikeBinding
-import com.example.movieintroduce.model.Movie
 import com.example.movieintroduce.db.MovieDatabase
-import com.example.movieintroduce.model.MovieDBRepository
+import com.example.movieintroduce.repository.MovieDBRepository
 import com.example.movieintroduce.viewmodel.MovieDetailViewModel
 import kotlinx.coroutines.launch 
 

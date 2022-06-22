@@ -5,7 +5,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.example.movieintroduce.model.Movie
-import com.example.paging.MoviePagingSource
+import com.example.movieintroduce.repository.MoviePagingSource
 import kotlinx.coroutines.flow.Flow
 
 class MovieIntroduceViewModel : ViewModel() {

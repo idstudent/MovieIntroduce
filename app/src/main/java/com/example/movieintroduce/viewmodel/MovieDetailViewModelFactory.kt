@@ -2,7 +2,7 @@ package com.example.movieintroduce.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.movieintroduce.model.MovieDBRepository
+import com.example.movieintroduce.repository.MovieDBRepository
 
 class MovieDetailViewModelFactory(private val repository: MovieDBRepository) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {

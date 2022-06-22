@@ -3,7 +3,7 @@ package com.example.movieintroduce.viewmodel
 import androidx.lifecycle.*
 import com.example.movieintroduce.Event
 import com.example.movieintroduce.model.Movie
-import com.example.movieintroduce.model.MovieDBRepository
+import com.example.movieintroduce.repository.MovieDBRepository
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch

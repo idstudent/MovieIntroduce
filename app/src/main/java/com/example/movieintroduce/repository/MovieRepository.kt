@@ -1,6 +1,7 @@
-package com.example.movieintroduce.model
+package com.example.movieintroduce.repository
 
 import com.example.movieintroduce.api.ApiManager
+import com.example.movieintroduce.model.NowMoviesResponse
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import retrofit2.Response
