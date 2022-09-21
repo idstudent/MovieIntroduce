@@ -12,7 +12,7 @@ class MoviePagingSource : PagingSource<Int, Movie>() {
         return try {
             val position = params.key ?: 1
 
-            val response = ApiManager.getInstance().getNowViewMovies("api_key", "ko", position)
+            val response = ApiManager.getInstance().getNowViewMovies("89528b7e09000fdd0fb000cfd09fa419", "ko", position)
 
             val body = response.body()?.movieInfoList ?: ArrayList()
 
