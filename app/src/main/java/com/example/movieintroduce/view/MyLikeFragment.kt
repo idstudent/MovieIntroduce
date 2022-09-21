@@ -1,53 +1,62 @@
 package com.example.movieintroduce.view
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.movieintroduce.viewmodel.MovieDetailViewModelFactory
 import com.example.movieintroduce.R
 import com.example.movieintroduce.adapter.MyLikeMovieAdapter
-import com.example.movieintroduce.databinding.ActivityMyLikeBinding
+import com.example.movieintroduce.databinding.FragmentMovieIntroduceBinding
+import com.example.movieintroduce.databinding.FragmentMyLikeBinding
 import com.example.movieintroduce.db.MovieDatabase
 import com.example.movieintroduce.repository.MovieRepository
 import com.example.movieintroduce.viewmodel.MovieDetailViewModel
+import com.example.movieintroduce.viewmodel.MovieDetailViewModelFactory
 import kotlinx.coroutines.launch
 
-class MyLikeActivity : AppCompatActivity() {
+class MyLikeFragment : Fragment() {
     private lateinit var movieDetailViewModel: MovieDetailViewModel
     private val adapter : MyLikeMovieAdapter by lazy {
         MyLikeMovieAdapter { item ->
-            val intent = Intent(this@MyLikeActivity, MovieDetailActivity::class.java)
+            val intent = Intent(activity, MovieDetailActivity::class.java)
             intent.putExtra("item", item)
             startActivity(intent)
         }
     }
 
-    private lateinit var binding : ActivityMyLikeBinding
+    private lateinit var binding: FragmentMyLikeBinding
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_my_like, container, false)
+        return binding.root
+    }
 
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_my_like)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        val dao = MovieDatabase.getInstance(application).movieDAO
+        val dao = MovieDatabase.getInstance(requireActivity()).movieDAO
         val repository = MovieRepository(dao)
         val factory = MovieDetailViewModelFactory(repository)
 
         movieDetailViewModel = ViewModelProvider(this,factory).get(MovieDetailViewModel::class.java)
 
         binding.run {
-            likeRecycler.layoutManager = GridLayoutManager(this@MyLikeActivity, 2)
+            likeRecycler.layoutManager = GridLayoutManager(activity, 2)
             likeRecycler.adapter = adapter
         }
 
         movieDataShow()
     }
-
     override fun onResume() {
         super.onResume()
 
@@ -56,7 +65,7 @@ class MyLikeActivity : AppCompatActivity() {
         }
     }
     private fun movieDataShow() {
-        movieDetailViewModel.enterLikeStatus.observe(this, Observer {
+        movieDetailViewModel.enterLikeStatus.observe(viewLifecycleOwner, Observer {
             adapter.differ.submitList(it)
         })
     }
