@@ -19,16 +19,14 @@ class MovieDetailViewModel @Inject constructor(
     private val likeMovieUseCase : LikeMovieUseCase,
     private val cancelLikeMovieUseCase: CancelLikeMovieUseCase
 ) : ViewModel() {
-    private var likeStatus = MutableLiveData<Event<Boolean>>()
-
-    val like : LiveData<Event<Boolean>>
-        get() = likeStatus
+    private var _likeStatus = MutableLiveData<Event<Boolean>>()
+    val likeStatus : LiveData<Event<Boolean>> get() = _likeStatus
 
     fun likeMovieInsert(movie : Movie) : Job {
         return viewModelScope.launch {
             likeMovieUseCase.execute(movie)
 
-            likeStatus.value = Event(true)
+            _likeStatus.value = Event(true)
         }
     }
 
@@ -36,7 +34,7 @@ class MovieDetailViewModel @Inject constructor(
         return viewModelScope.launch {
             cancelLikeMovieUseCase.execute(movie)
 
-            likeStatus.value = Event(false)
+            _likeStatus.value = Event(false)
         }
     }
     fun getMovies() : LiveData<List<Movie>> {

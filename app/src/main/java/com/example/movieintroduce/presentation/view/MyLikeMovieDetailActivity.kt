@@ -44,34 +44,43 @@ class MyLikeMovieDetailActivity : AppCompatActivity() {
 
         binding.movie = movieData
 
-        if(idList.size>0) {
-            for (i in 0 until idList.size) {
-                if (movieData.movieId == idList[i]){
-                    binding.movieRememberBtn.visibility = View.VISIBLE
-                    binding.movieNoRememberBtn.visibility = View.INVISIBLE
+        if(idList.size > 0) {
+            idList.mapIndexed { index, _ ->
+                if (movieData.movieId == idList[index]){
+                    setOnRememberBtn()
                     return
                 }else {
-                    binding.movieRememberBtn.visibility = View.INVISIBLE
-                    binding.movieNoRememberBtn.visibility = View.VISIBLE
+                    setOffRememberBtn()
                 }
             }
         }else {
-            binding.movieRememberBtn.visibility = View.INVISIBLE
-            binding.movieNoRememberBtn.visibility = View.VISIBLE
+            setOffRememberBtn()
         }
     }
 
     private fun setLikeStatus() {
-        movieDetailViewModel.like.observe(this, Observer {
+        movieDetailViewModel.likeStatus.observe(this, Observer {
             it.getContentIfNotHandled()?.let{ status ->
                 if(status) {
-                    binding.movieNoRememberBtn.visibility = View.INVISIBLE
-                    binding.movieRememberBtn.visibility = View.VISIBLE
+                    setOnRememberBtn()
                 }else {
-                    binding.movieNoRememberBtn.visibility = View.VISIBLE
-                    binding.movieRememberBtn.visibility = View.INVISIBLE
+                    setOffRememberBtn()
                 }
             }
         })
+    }
+
+    private fun setOnRememberBtn() {
+        binding.run {
+            movieRememberBtn.visibility = View.VISIBLE
+            movieNoRememberBtn.visibility = View.INVISIBLE
+        }
+    }
+
+    private fun setOffRememberBtn() {
+        binding.run {
+            movieRememberBtn.visibility = View.INVISIBLE
+            movieNoRememberBtn.visibility = View.VISIBLE
+        }
     }
 }

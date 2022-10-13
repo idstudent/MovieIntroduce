@@ -4,6 +4,10 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/github/MovieIntroduce/app/src/main/res/layout/item_movie.xml" value="0.20425724637681159" />
+        <entry key="app/src/main/res/layout/activity_movie_detail.xml" value="0.35885416666666664" />
+        <entry key="app/src/main/res/layout/activity_movie_introduce.xml" value="0.35885416666666664" />
+        <entry key="app/src/main/res/layout/activity_my_like.xml" value="0.35885416666666664" />
+        <entry key="app/src/main/res/layout/activity_my_like_movie_detail.xml" value="0.35885416666666664" />
       </map>
     </option>
   </component>
