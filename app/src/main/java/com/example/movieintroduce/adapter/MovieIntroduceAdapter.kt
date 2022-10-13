@@ -14,7 +14,6 @@ class MovieIntroduceAdapter(
     private val listener : (item : Movie) -> Unit
 ) : PagingDataAdapter<Movie, MovieIntroduceAdapter.MovieViewHolder>(callback) {
 
-
     companion object {
         private val callback = object : DiffUtil.ItemCallback<Movie>() {
             override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean {
@@ -52,5 +51,4 @@ class MovieIntroduceAdapter(
         }
 
     }
-
 }

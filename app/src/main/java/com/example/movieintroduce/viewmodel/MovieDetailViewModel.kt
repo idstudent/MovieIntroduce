@@ -29,9 +29,12 @@ class MovieDetailViewModel(private val repository: MovieRepository) : ViewModel(
             _clickLikeStatus.value = Event(false)
         }
     }
-    suspend fun getMovies()  {
-        repository.movies.collect {
-            _enterLikeStatus.value = it
-        }
-    }
+
+    fun getMovies() = repository.movies
+
+//    suspend fun getMovies()  {
+//        repository.movies.collect {
+//            _enterLikeStatus.value = it
+//        }
+//    }
 }

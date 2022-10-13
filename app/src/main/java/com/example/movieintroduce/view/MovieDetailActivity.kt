@@ -31,12 +31,9 @@ class MovieDetailActivity : AppCompatActivity() {
             ViewModelProvider(this, factory).get(MovieDetailViewModel::class.java)
 
         binding.movieViewModel = movieDetailViewModel
+
         if (supportActionBar != null) {
             supportActionBar?.setDisplayHomeAsUpEnabled(false)
-        }
-
-        lifecycleScope.launch {
-            movieDetailViewModel.getMovies()
         }
 
         movieDataShow()
@@ -44,7 +41,6 @@ class MovieDetailActivity : AppCompatActivity() {
     }
 
     private fun movieDataShow() {
-        val intent = intent
         val movieData = intent.getSerializableExtra("item") as Movie
 
         val toolbar = findViewById<View>(R.id.toolbar) as Toolbar
@@ -53,18 +49,19 @@ class MovieDetailActivity : AppCompatActivity() {
 
         binding.movie = movieData
 
-        movieDetailViewModel.enterLikeStatus.observe(this, Observer {
-            run loop@{
-                it.map {
-                    if (movieData.movieId == it.movieId) {
+        lifecycleScope.launch {
+            movieDetailViewModel.getMovies().collect {
+                it.mapIndexed { index, _ ->
+                    if (movieData.movieId == it[index].movieId) {
                         movieRememberBtn(true)
-                        return@loop
+                        return@collect
                     } else {
                         movieRememberBtn(false)
                     }
                 }
             }
-        })
+        }
+
     }
 
     private fun setLikeStatus() {

@@ -7,8 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.*
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.movieintroduce.R
 import com.example.movieintroduce.adapter.MovieIntroduceAdapter
@@ -18,6 +17,7 @@ import com.example.movieintroduce.repository.MovieRepository
 import com.example.movieintroduce.viewmodel.MovieDetailViewModel
 import com.example.movieintroduce.viewmodel.MovieDetailViewModelFactory
 import com.example.movieintroduce.viewmodel.MovieIntroduceViewModel
+import kotlinx.coroutines.launch
 
 class MovieIntroduceFragment : Fragment() {
     private val adapter: MovieIntroduceAdapter by lazy {
@@ -55,19 +55,22 @@ class MovieIntroduceFragment : Fragment() {
         binding.run {
             movieRecycler.layoutManager = GridLayoutManager(activity, 2)
             movieRecycler.adapter = adapter
-        }
 
-        binding.swipeLayout.setOnRefreshListener {
-            getMovieIntroduce()
-            binding.swipeLayout.isRefreshing = false
+            swipeLayout.setOnRefreshListener {
+                getMovieIntroduce()
+                binding.swipeLayout.isRefreshing = false
+            }
         }
 
         getMovieIntroduce()
     }
     private fun getMovieIntroduce() {
-        movieIntroduceViewModel.getMovieIntroduces()
-            .observe(viewLifecycleOwner) {
-                adapter.submitData(this.lifecycle, it)
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                movieIntroduceViewModel.getMovieIntroduces().collect {
+                    adapter.submitData(it)
+                }
             }
+        }
     }
 }

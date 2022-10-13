@@ -7,9 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.*
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.movieintroduce.R
 import com.example.movieintroduce.adapter.MyLikeMovieAdapter
@@ -36,7 +34,7 @@ class MyLikeFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_my_like, container, false)
         return binding.root
     }
@@ -55,18 +53,12 @@ class MyLikeFragment : Fragment() {
             likeRecycler.adapter = adapter
         }
 
-        movieDataShow()
-    }
-    override fun onResume() {
-        super.onResume()
-
-        lifecycleScope.launch {
-            movieDetailViewModel.getMovies()
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                movieDetailViewModel.getMovies().collect {
+                    adapter.differ.submitList(it)
+                }
+            }
         }
-    }
-    private fun movieDataShow() {
-        movieDetailViewModel.enterLikeStatus.observe(viewLifecycleOwner, Observer {
-            adapter.differ.submitList(it)
-        })
     }
 }
