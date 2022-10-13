@@ -3,7 +3,6 @@ package com.example.movieintroduce.view
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -43,11 +42,13 @@ class MovieDetailActivity : AppCompatActivity() {
     private fun movieDataShow() {
         val movieData = intent.getSerializableExtra("item") as Movie
 
-        val toolbar = findViewById<View>(R.id.toolbar) as Toolbar
-        toolbar.title = movieData.movieTitle
-        setSupportActionBar(toolbar)
+        binding.run {
+            toolbar.title = movieData.movieTitle
+            setSupportActionBar(toolbar)
 
-        binding.movie = movieData
+            movie = movieData
+
+        }
 
         lifecycleScope.launch {
             movieDetailViewModel.getMovies().collect {
@@ -76,12 +77,14 @@ class MovieDetailActivity : AppCompatActivity() {
         })
     }
     private fun movieRememberBtn(remember : Boolean) {
-        if(remember) {
-            binding.movieRememberBtn.visibility = View.VISIBLE
-            binding.movieNoRememberBtn.visibility = View.INVISIBLE
-        }else {
-            binding.movieRememberBtn.visibility = View.INVISIBLE
-            binding.movieNoRememberBtn.visibility = View.VISIBLE
+        binding.run {
+            if(remember) {
+                movieRememberBtn.visibility = View.VISIBLE
+                movieNoRememberBtn.visibility = View.INVISIBLE
+            }else {
+                movieRememberBtn.visibility = View.INVISIBLE
+                movieNoRememberBtn.visibility = View.VISIBLE
+            }
         }
     }
 }
