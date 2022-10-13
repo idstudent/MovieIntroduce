@@ -7,11 +7,14 @@ import com.example.movieintroduce.data.model.Movie
 import com.example.movieintroduce.domain.usecase.CancelLikeMovieUseCase
 import com.example.movieintroduce.domain.usecase.GetLikeMovieUseCase
 import com.example.movieintroduce.domain.usecase.LikeMovieUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class MovieDetailViewModel(
+@HiltViewModel
+class MovieDetailViewModel @Inject constructor(
     private val getLikeMovieUseCase : GetLikeMovieUseCase,
     private val likeMovieUseCase : LikeMovieUseCase,
     private val cancelLikeMovieUseCase: CancelLikeMovieUseCase

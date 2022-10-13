@@ -12,11 +12,14 @@ import androidx.lifecycle.viewModelScope
 import com.example.movieintroduce.data.model.NowMoviesResponse
 import com.example.movieintroduce.data.util.Resource
 import com.example.movieintroduce.domain.usecase.GetIntroduceMovieUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import java.lang.Exception
+import javax.inject.Inject
 
-class MovieIntroduceViewModel(
+@HiltViewModel
+class MovieIntroduceViewModel @Inject constructor(
     private val application : Application,
     private val getIntroduceMovieUseCase: GetIntroduceMovieUseCase
 ) : ViewModel() {

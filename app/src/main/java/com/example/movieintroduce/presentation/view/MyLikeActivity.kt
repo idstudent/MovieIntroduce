@@ -3,29 +3,23 @@ package com.example.movieintroduce.presentation.view
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.movieintroduce.presentation.viewmodel.MovieFactory
 import com.example.movieintroduce.R
 import com.example.movieintroduce.presentation.adapter.MyLikeMovieAdapter
 import com.example.movieintroduce.databinding.ActivityMyLikeBinding
 import com.example.movieintroduce.data.model.Movie
-import com.example.movieintroduce.data.db.MovieDatabase
 import com.example.movieintroduce.listener.ItemClickListener
-import com.example.movieintroduce.data.model.MovieRepository
 import com.example.movieintroduce.presentation.viewmodel.MovieDetailViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class MyLikeActivity : AppCompatActivity() {
-    @Inject
-    lateinit var factory : MovieFactory
-    private lateinit var movieDetailViewModel: MovieDetailViewModel
-    @Inject
-    lateinit var adapter  : MyLikeMovieAdapter
+    private val movieDetailViewModel: MovieDetailViewModel by viewModels()
+    @Inject lateinit var adapter  : MyLikeMovieAdapter
     private lateinit var binding : ActivityMyLikeBinding
     private var movieIdList = ArrayList<Int>()
 
@@ -33,8 +27,6 @@ class MyLikeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_my_like)
-
-        movieDetailViewModel = ViewModelProvider(this,factory).get(MovieDetailViewModel::class.java)
     }
 
     override fun onResume() {

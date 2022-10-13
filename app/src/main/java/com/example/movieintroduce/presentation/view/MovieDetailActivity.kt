@@ -3,31 +3,24 @@ package com.example.movieintroduce.presentation.view
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.activity.viewModels
 import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.example.movieintroduce.R
 import com.example.movieintroduce.databinding.ActivityMovieDetailBinding
 import com.example.movieintroduce.data.model.Movie
 import com.example.movieintroduce.presentation.viewmodel.MovieDetailViewModel
-import com.example.movieintroduce.presentation.viewmodel.MovieFactory
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class MovieDetailActivity : AppCompatActivity() {
-    @Inject
-    lateinit var factory : MovieFactory
-
     private lateinit var binding : ActivityMovieDetailBinding
-    private lateinit var movieDetailViewModel: MovieDetailViewModel
+    private val movieDetailViewModel: MovieDetailViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_movie_detail)
-
-        movieDetailViewModel = ViewModelProvider(this,factory).get(MovieDetailViewModel::class.java)
 
         binding.movieViewModel = movieDetailViewModel
         if (supportActionBar != null) {
@@ -64,15 +57,6 @@ class MovieDetailActivity : AppCompatActivity() {
             binding.movieRememberBtn.visibility = View.INVISIBLE
             binding.movieNoRememberBtn.visibility = View.VISIBLE
         }
-//        for(i in movieData.genre.indices) {
-//            var genere = getGenre(movieData.genre[i])
-//
-//            if(i == 0) {
-//                binding.movieGenre.append(genere)
-//            }else {
-//                binding.movieGenre.append("," + genere)
-//            }
-//        }
     }
 
     private fun setLikeStatus() {

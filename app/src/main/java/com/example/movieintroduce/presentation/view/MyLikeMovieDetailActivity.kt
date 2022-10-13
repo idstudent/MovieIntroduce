@@ -3,32 +3,25 @@ package com.example.movieintroduce.presentation.view
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.activity.viewModels
 import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import com.example.movieintroduce.presentation.viewmodel.MovieFactory
 import com.example.movieintroduce.R
 import com.example.movieintroduce.databinding.ActivityMyLikeMovieDetailBinding
 import com.example.movieintroduce.data.model.Movie
-import com.example.movieintroduce.data.db.MovieDatabase
-import com.example.movieintroduce.data.model.MovieRepository
 import com.example.movieintroduce.presentation.viewmodel.MovieDetailViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class MyLikeMovieDetailActivity : AppCompatActivity() {
-    @Inject
-    lateinit var factory : MovieFactory
     private lateinit var binding : ActivityMyLikeMovieDetailBinding
-    private lateinit var movieDetailViewModel: MovieDetailViewModel
+    private val movieDetailViewModel: MovieDetailViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_my_like_movie_detail)
 
-        movieDetailViewModel = ViewModelProvider(this,factory).get(MovieDetailViewModel::class.java)
         binding.movieViewModel = movieDetailViewModel
 
         if (supportActionBar != null) {

@@ -16,7 +16,8 @@
         <activity android:name="com.example.movieintroduce.presentation.view.MyLikeActivity"/>
         <activity android:name="com.example.movieintroduce.presentation.view.MovieDetailActivity" />
         <activity android:name="com.example.movieintroduce.presentation.view.MyLikeMovieDetailActivity"/>
-        <activity android:name="com.example.movieintroduce.presentation.view.MovieIntroduceActivity">
+        <activity android:name="com.example.movieintroduce.presentation.view.MovieIntroduceActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

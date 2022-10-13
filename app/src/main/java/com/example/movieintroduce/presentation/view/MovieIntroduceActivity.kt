@@ -3,14 +3,12 @@ package com.example.movieintroduce.presentation.view
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.movieintroduce.BuildConfig
-import com.example.movieintroduce.presentation.viewmodel.MovieFactory
 import com.example.movieintroduce.R
 import com.example.movieintroduce.presentation.adapter.MovieIntroduceAdapter
 import com.example.movieintroduce.databinding.ActivityMovieIntroduceBinding
@@ -25,22 +23,16 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class MovieIntroduceActivity : AppCompatActivity() {
-    @Inject
-    lateinit var factory : MovieFactory
-    @Inject
-    lateinit var adapter  : MovieIntroduceAdapter
+    @Inject lateinit var adapter  : MovieIntroduceAdapter
     private lateinit var binding : ActivityMovieIntroduceBinding
-    private lateinit var movieIntroduceViewModel: MovieIntroduceViewModel
-    private lateinit var movieDetailViewModel: MovieDetailViewModel
+    private val movieIntroduceViewModel: MovieIntroduceViewModel by viewModels()
+    private val movieDetailViewModel: MovieDetailViewModel by viewModels()
     private var movieIdList = ArrayList<Int>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_movie_introduce)
-
-        movieIntroduceViewModel = ViewModelProvider(this,factory).get(MovieIntroduceViewModel::class.java)
-        movieDetailViewModel = ViewModelProvider(this,factory).get(MovieDetailViewModel::class.java)
 
         getMovieIntroduce()
 
@@ -57,7 +49,7 @@ class MovieIntroduceActivity : AppCompatActivity() {
         getLike()
     }
     private fun getMovieIntroduce() {
-        movieIntroduceViewModel.getIntroduceMovies(BuildConfig.api_key, "ko")
+        movieIntroduceViewModel.getIntroduceMovies("api_key", "ko")
         movieIntroduceViewModel.introduceMovieList.observe(this, Observer<Resource<NowMoviesResponse>> {
                 response ->
             when(response) {
