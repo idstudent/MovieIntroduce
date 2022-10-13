@@ -12,9 +12,9 @@ import com.example.movieintroduce.databinding.ItemLikeMovieBinding
 import com.example.movieintroduce.data.model.Movie
 import com.example.movieintroduce.listener.ItemClickListener
 
-class MyLikeMovieAdapter() : RecyclerView.Adapter<MyLikeMovieAdapter.MovieViewHolder>() {
-
-    private lateinit var listener : ItemClickListener<Movie>
+class MyLikeMovieAdapter(
+    private val listener : (movie : Movie) -> Unit
+) : RecyclerView.Adapter<MyLikeMovieAdapter.MovieViewHolder>() {
 
     private val callback = object : DiffUtil.ItemCallback<Movie>() {
         override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean {
@@ -27,9 +27,6 @@ class MyLikeMovieAdapter() : RecyclerView.Adapter<MyLikeMovieAdapter.MovieViewHo
     }
     val differ = AsyncListDiffer(this, callback)
 
-    fun itemClickListener(listener: ItemClickListener<Movie>) {
-        this.listener = listener
-    }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         val movieListItemBinding : ItemLikeMovieBinding =
             DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.item_like_movie, parent, false)
@@ -45,7 +42,7 @@ class MyLikeMovieAdapter() : RecyclerView.Adapter<MyLikeMovieAdapter.MovieViewHo
         holder.movieListItemBinding.movie =  differ.currentList[position]
 
         holder.movieListItemBinding.root.setOnClickListener {
-            listener.onClick(differ.currentList[position])
+            listener.invoke(differ.currentList[position])
         }
     }
     inner class MovieViewHolder(itemMovieBinding: ItemLikeMovieBinding) : RecyclerView.ViewHolder(itemMovieBinding.root) {

@@ -22,7 +22,13 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class MovieIntroduceActivity : AppCompatActivity() {
-    @Inject lateinit var adapter  : MovieIntroduceAdapter
+    private val adapter : MovieIntroduceAdapter by lazy {
+        MovieIntroduceAdapter {
+            val intent = Intent(this@MovieIntroduceActivity, MovieDetailActivity::class.java)
+            intent.putExtra("item", it)
+            startActivity(intent)
+        }
+    }
     private lateinit var binding : ActivityMovieIntroduceBinding
     private val movieIntroduceViewModel: MovieIntroduceViewModel by viewModels()
 
@@ -65,18 +71,10 @@ class MovieIntroduceActivity : AppCompatActivity() {
     private fun showMovieIntroduce(nowMoviesResponse: List<Movie>) {
         val movieRecycler = binding.movieRecycler
         adapter.differ.submitList(nowMoviesResponse)
-        adapter.itemClickListener(listener)
         movieRecycler.layoutManager = GridLayoutManager(this@MovieIntroduceActivity, 2)
         movieRecycler.adapter = adapter
     }
 
-    val listener = object : ItemClickListener<Movie> {
-        override fun onClick(item: Movie) {
-            val intent = Intent(this@MovieIntroduceActivity, MovieDetailActivity::class.java)
-            intent.putExtra("item", item)
-            startActivity(intent)
-        }
-    }
     private fun onClick() {
         binding.likeShowBtn.setOnClickListener {
             val intent = Intent(this@MovieIntroduceActivity, MyLikeActivity::class.java)
