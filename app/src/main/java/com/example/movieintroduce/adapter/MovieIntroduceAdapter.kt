@@ -11,31 +11,31 @@ import com.example.movieintroduce.databinding.ItemMovieBinding
 import com.example.movieintroduce.model.Movie
 
 class MovieIntroduceAdapter(
-    private val listener : (item : Movie) -> Unit
-) : PagingDataAdapter<Movie, MovieIntroduceAdapter.MovieViewHolder>(callback) {
+    private val listener: (item: Movie) -> Unit
+) : PagingDataAdapter<Movie, MovieIntroduceAdapter.MovieViewHolder>(
+    object : DiffUtil.ItemCallback<Movie>() {
+        override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean {
+            return oldItem == newItem
+        }
 
-    companion object {
-        private val callback = object : DiffUtil.ItemCallback<Movie>() {
-            override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean {
-                return oldItem == newItem
-            }
-
-            override fun areContentsTheSame(oldItem: Movie, newItem: Movie): Boolean {
-                return oldItem == newItem
-            }
+        override fun areContentsTheSame(oldItem: Movie, newItem: Movie): Boolean {
+            return oldItem == newItem
         }
     }
+) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
-        val movieListItemBinding : ItemMovieBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.context)
-            , R.layout.item_movie, parent, false)
+        val movieListItemBinding: ItemMovieBinding = DataBindingUtil.inflate(
+            LayoutInflater.from(parent.context), R.layout.item_movie, parent, false
+        )
 
         return MovieViewHolder(movieListItemBinding)
     }
 
-    override fun onBindViewHolder(holder: MovieViewHolder, position: Int)  {
+    override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         holder.onBind(getItem(position))
     }
+
     inner class MovieViewHolder(
         private val binding: ItemMovieBinding
     ) : RecyclerView.ViewHolder(binding.root) {
@@ -46,6 +46,7 @@ class MovieIntroduceAdapter(
                 }
             }
         }
+
         fun onBind(item: Movie?) {
             binding.movie = item
         }

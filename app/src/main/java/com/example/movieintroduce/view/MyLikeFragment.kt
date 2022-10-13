@@ -56,7 +56,7 @@ class MyLikeFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 movieDetailViewModel.getMovies().collect {
-                    adapter.differ.submitList(it)
+                    adapter.submitList(it)
                 }
             }
         }
