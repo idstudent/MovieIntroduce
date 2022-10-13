@@ -12,20 +12,17 @@ import com.example.movieintroduce.model.Movie
 
 class MovieIntroduceAdapter(
     private val listener: (item: Movie) -> Unit
-) : PagingDataAdapter<Movie, MovieIntroduceAdapter.MovieViewHolder>(callback) {
-
-
-    companion object {
-        private val callback = object : DiffUtil.ItemCallback<Movie>() {
-            override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean {
-                return oldItem == newItem
-            }
-
-            override fun areContentsTheSame(oldItem: Movie, newItem: Movie): Boolean {
-                return oldItem == newItem
-            }
+) : PagingDataAdapter<Movie, MovieIntroduceAdapter.MovieViewHolder>(
+    object : DiffUtil.ItemCallback<Movie>() {
+        override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean {
+            return oldItem == newItem
         }
-    }
+
+        override fun areContentsTheSame(oldItem: Movie, newItem: Movie): Boolean {
+            return oldItem == newItem
+        }
+    })
+{
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         val movieListItemBinding: ItemMovieBinding = DataBindingUtil.inflate(
@@ -47,8 +44,6 @@ class MovieIntroduceAdapter(
                 binding.movie?.let {
                     listener.invoke(it)
                 }
-
-
             }
         }
 

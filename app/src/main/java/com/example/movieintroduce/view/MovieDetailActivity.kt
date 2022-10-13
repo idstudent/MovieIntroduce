@@ -28,33 +28,30 @@ class MovieDetailActivity : BaseActivity<ActivityMovieDetailBinding>() {
 
         val movieData = intent.getSerializableExtra("item") as Movie
 
-        val toolbar = findViewById<View>(R.id.toolbar) as Toolbar
-        toolbar.title = movieData.movieTitle
-        setSupportActionBar(toolbar)
+        binding.run {
+            toolbar.title = movieData.movieTitle
+            setSupportActionBar(toolbar)
 
-        binding.movie = movieData
-        binding.movieViewModel = movieDetailViewModel
+            movie = movieData
+            movieViewModel = movieDetailViewModel
+        }
 
         lifecycleScope.launch {
-            movieDetailViewModel.getMovies()
-        }
-    }
-
-    override fun initViewModel() {
-        super.initViewModel()
-
-        movieDetailViewModel.enterLikeStatus.observe(this, Observer {
-            run loop@{
-                it.map {
-                    if (binding.movie?.movieId == it.movieId) {
+            movieDetailViewModel.getMovies().collect {
+                it.mapIndexed { index, movie ->
+                    if (movieData.movieId == it[index].movieId) {
                         movieRememberBtn(true)
-                        return@loop
+                        return@collect
                     } else {
                         movieRememberBtn(false)
                     }
                 }
             }
-        })
+        }
+    }
+
+    override fun initViewModel() {
+        super.initViewModel()
 
         movieDetailViewModel.clickLikeStatus.observe(this, Observer {
             it.getContentIfNotHandled()?.let { status ->
@@ -68,12 +65,15 @@ class MovieDetailActivity : BaseActivity<ActivityMovieDetailBinding>() {
     }
 
     private fun movieRememberBtn(remember : Boolean) {
-        if(remember) {
-            binding.movieRememberBtn.visibility = View.VISIBLE
-            binding.movieNoRememberBtn.visibility = View.INVISIBLE
-        }else {
-            binding.movieRememberBtn.visibility = View.INVISIBLE
-            binding.movieNoRememberBtn.visibility = View.VISIBLE
+        binding.run {
+            if(remember) {
+                movieRememberBtn.visibility = View.VISIBLE
+                movieNoRememberBtn.visibility = View.INVISIBLE
+            }else {
+                movieRememberBtn.visibility = View.INVISIBLE
+                movieNoRememberBtn.visibility = View.VISIBLE
+            }
         }
+
     }
 }

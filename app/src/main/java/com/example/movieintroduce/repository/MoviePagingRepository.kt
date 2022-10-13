@@ -7,11 +7,12 @@ import androidx.paging.PagingData
 import androidx.paging.liveData
 import com.example.movieintroduce.api.ApiService
 import com.example.movieintroduce.model.Movie
+import kotlinx.coroutines.flow.Flow
 
 class MoviePagingRepository(
     private val apiService: ApiService
 ) {
-    fun getMoviePaging(): LiveData<PagingData<Movie>> {
+    fun getMoviePaging(): Flow<PagingData<Movie>> {
         return Pager(
             config = PagingConfig(
                 pageSize = 5,
@@ -19,6 +20,6 @@ class MoviePagingRepository(
                 enablePlaceholders = false
             ),
             pagingSourceFactory = { MoviePagingSource(apiService) }
-        ).liveData
+        ).flow
     }
 }

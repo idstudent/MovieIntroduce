@@ -2,12 +2,15 @@ package com.example.movieintroduce.view
 
 import android.content.Intent
 import androidx.activity.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.movieintroduce.R
 import com.example.movieintroduce.adapter.MovieIntroduceAdapter
 import com.example.movieintroduce.databinding.ActivityMovieIntroduceBinding
 import com.example.movieintroduce.viewmodel.MovieIntroduceViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MovieIntroduceActivity : BaseActivity<ActivityMovieIntroduceBinding>() {
@@ -52,10 +55,12 @@ class MovieIntroduceActivity : BaseActivity<ActivityMovieIntroduceBinding>() {
 
         getMovieIntroduce()
     }
+
     private fun getMovieIntroduce() {
-        movieIntroduceViewModel.getMovieIntroduces()
-            .observe(this) {
-                adapter.submitData(this.lifecycle, it)
+        lifecycleScope.launch {
+            movieIntroduceViewModel.getMovieIntroduces().collect {
+                adapter.submitData(it)
             }
+        }
     }
 }

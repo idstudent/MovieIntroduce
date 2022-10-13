@@ -18,10 +18,6 @@ class MovieDetailViewModel @Inject constructor(
     private var _clickLikeStatus = MutableLiveData<Event<Boolean>>()
     val clickLikeStatus : LiveData<Event<Boolean>> get() = _clickLikeStatus
 
-    private var _enterLikeStatus = MutableLiveData<List<Movie>>()
-    val enterLikeStatus : LiveData<List<Movie>> get() = _enterLikeStatus
-
-
     fun likeMovieInsert(movie : Movie) : Job {
         return viewModelScope.launch {
             repository.insert(movie)
@@ -35,9 +31,6 @@ class MovieDetailViewModel @Inject constructor(
             _clickLikeStatus.value = Event(false)
         }
     }
-    suspend fun getMovies()  {
-        repository.movies.collect {
-            _enterLikeStatus.value = it
-        }
-    }
+
+    fun getMovies() = repository.movies
 }
