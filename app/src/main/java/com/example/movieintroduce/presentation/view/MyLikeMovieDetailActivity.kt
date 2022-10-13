@@ -7,11 +7,13 @@ import androidx.activity.viewModels
 import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import com.example.movieintroduce.R
 import com.example.movieintroduce.databinding.ActivityMyLikeMovieDetailBinding
 import com.example.movieintroduce.data.model.Movie
 import com.example.movieintroduce.presentation.viewmodel.MovieDetailViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MyLikeMovieDetailActivity : AppCompatActivity() {
@@ -29,14 +31,12 @@ class MyLikeMovieDetailActivity : AppCompatActivity() {
         }
 
         movieDataShow()
-
         setLikeStatus()
     }
 
     private fun movieDataShow() {
         val intent = intent
         val movieData = intent.getSerializableExtra("item") as Movie
-        val idList = intent.getSerializableExtra("id") as ArrayList<Int>
 
         val toolbar = findViewById<View>(R.id.toolbar) as Toolbar
         toolbar.title = movieData.movieTitle
@@ -44,17 +44,21 @@ class MyLikeMovieDetailActivity : AppCompatActivity() {
 
         binding.movie = movieData
 
-        if(idList.size > 0) {
-            idList.mapIndexed { index, _ ->
-                if (movieData.movieId == idList[index]){
-                    setOnRememberBtn()
-                    return
-                }else {
+        lifecycleScope.launch {
+            movieDetailViewModel.getMovies().collect {
+                if(it.isEmpty()) {
                     setOffRememberBtn()
+                }else {
+                    it.mapIndexed { index, _ ->
+                        if (movieData.movieId == it[index].movieId){
+                            setOnRememberBtn()
+                            return@mapIndexed
+                        }else {
+                            setOffRememberBtn()
+                        }
+                    }
                 }
             }
-        }else {
-            setOffRememberBtn()
         }
     }
 

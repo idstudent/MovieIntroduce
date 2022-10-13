@@ -6,6 +6,7 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -23,19 +24,20 @@ class MovieIntroduceViewModel @Inject constructor(
     private val application : Application,
     private val getIntroduceMovieUseCase: GetIntroduceMovieUseCase
 ) : ViewModel() {
-    val introduceMovieList : MutableLiveData<Resource<NowMoviesResponse>> = MutableLiveData()
+    private var _introduceMovieList : MutableLiveData<Resource<NowMoviesResponse>> = MutableLiveData()
+    val introduceMovieList : LiveData<Resource<NowMoviesResponse>> get() = _introduceMovieList
 
     fun getIntroduceMovies(apiKey : String, country : String): Job {
         return viewModelScope.launch {
             try{
                 if(isNetworkAvailable(application)) {
                     val response = getIntroduceMovieUseCase.execute(apiKey, country)
-                    introduceMovieList.postValue(response)
+                    _introduceMovieList.postValue(response)
                 }else {
-                    introduceMovieList.postValue(Resource.Error(("인터넷 연결을 확인해주세요.")))
+                    _introduceMovieList.postValue(Resource.Error(("인터넷 연결을 확인해주세요.")))
                 }
             }catch (e : Exception) {
-                introduceMovieList.postValue(Resource.Error((e.message.toString())))
+                _introduceMovieList.postValue(Resource.Error((e.message.toString())))
             }
         }
     }

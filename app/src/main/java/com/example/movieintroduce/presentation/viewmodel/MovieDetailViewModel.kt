@@ -9,6 +9,7 @@ import com.example.movieintroduce.domain.usecase.GetLikeMovieUseCase
 import com.example.movieintroduce.domain.usecase.LikeMovieUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -37,11 +38,7 @@ class MovieDetailViewModel @Inject constructor(
             _likeStatus.value = Event(false)
         }
     }
-    fun getMovies() : LiveData<List<Movie>> {
-        return liveData {
-            getLikeMovieUseCase.execute().collect {
-                emit(it)
-            }
-        }
-    }
+
+    fun getMovies() = getLikeMovieUseCase.execute()
+
 }
