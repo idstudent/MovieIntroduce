@@ -1,6 +1,5 @@
 package com.example.movieintroduce.viewmodel
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.paging.PagingData
 import com.example.movieintroduce.model.Movie

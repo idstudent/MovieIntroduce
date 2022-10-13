@@ -5,16 +5,11 @@ import com.example.movieintroduce.Event
 import com.example.movieintroduce.model.Movie
 import com.example.movieintroduce.repository.MovieRepository
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class MovieDetailViewModel(private val repository: MovieRepository) : ViewModel() {
     private var _clickLikeStatus = MutableLiveData<Event<Boolean>>()
     val clickLikeStatus : LiveData<Event<Boolean>> get() = _clickLikeStatus
-
-    private var _enterLikeStatus = MutableLiveData<List<Movie>>()
-    val enterLikeStatus : LiveData<List<Movie>> get() = _enterLikeStatus
-
 
     fun likeMovieInsert(movie : Movie) : Job {
         return viewModelScope.launch {
@@ -31,10 +26,4 @@ class MovieDetailViewModel(private val repository: MovieRepository) : ViewModel(
     }
 
     fun getMovies() = repository.movies
-
-//    suspend fun getMovies()  {
-//        repository.movies.collect {
-//            _enterLikeStatus.value = it
-//        }
-//    }
 }

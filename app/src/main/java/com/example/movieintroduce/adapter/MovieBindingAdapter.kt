@@ -8,8 +8,9 @@ object MovieBindingAdapter {
     @BindingAdapter("app:movieImg")
     @JvmStatic
     fun showImage(imageView: ImageView, url: String?) {
-    url?.let{
-            Glide.with(imageView.context).load("https://image.tmdb.org/t/p/w500"+it).into(imageView)
+        url?.let {
+            Glide.with(imageView.context).load("https://image.tmdb.org/t/p/w500" + it)
+                .into(imageView)
         }
     }
 }

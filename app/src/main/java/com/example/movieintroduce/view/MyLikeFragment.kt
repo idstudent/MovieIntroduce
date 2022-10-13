@@ -11,7 +11,6 @@ import androidx.lifecycle.*
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.movieintroduce.R
 import com.example.movieintroduce.adapter.MyLikeMovieAdapter
-import com.example.movieintroduce.databinding.FragmentMovieIntroduceBinding
 import com.example.movieintroduce.databinding.FragmentMyLikeBinding
 import com.example.movieintroduce.db.MovieDatabase
 import com.example.movieintroduce.repository.MovieRepository
