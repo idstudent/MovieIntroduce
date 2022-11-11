@@ -6,14 +6,16 @@ import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.movieintroduce.R
 import com.example.movieintroduce.presentation.adapter.MovieIntroduceAdapter
 import com.example.movieintroduce.databinding.ActivityMovieIntroduceBinding
 import com.example.domain.model.Movie
-import com.example.domain.util.Resource
 import com.example.movieintroduce.presentation.viewmodel.MovieIntroduceViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MovieIntroduceActivity : AppCompatActivity() {
@@ -42,24 +44,12 @@ class MovieIntroduceActivity : AppCompatActivity() {
     }
 
     private fun getMovieIntroduce() {
-        movieIntroduceViewModel.getIntroduceMovies("api_key", "ko")
-        movieIntroduceViewModel.introduceMovieList.observe(this) { response ->
-            when (response) {
-                is Resource.Success -> {
-                    response.data?.let {
-                        showMovieIntroduce(it.movieInfoList)
-                    }
+        lifecycleScope.launch {
+            movieIntroduceViewModel.getIntroduceMovies("89528b7e09000fdd0fb000cfd09fa419", "ko")
+                .catch { it.printStackTrace() }
+                .collect {
+                    showMovieIntroduce(it)
                 }
-                is Resource.Error -> {
-                    response.message?.let {
-                        Log.e("tag", "에러 $it")
-                    }
-                }
-                is Resource.Loading -> {
-
-                }
-            }
-
         }
     }
 

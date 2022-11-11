@@ -1,6 +1,6 @@
 package com.example.data.api
 
-import com.example.domain.model.NowMoviesResponse
+import com.example.data.model.NowMoviesResponse
 import retrofit2.Response
 
 import retrofit2.http.GET
@@ -11,5 +11,5 @@ interface ApiService {
     suspend fun getNowViewMovies(
             @Query("api_key") apiKey: String,
             @Query("language") language: String
-    ): Response<NowMoviesResponse>
+    ): NowMoviesResponse
 }

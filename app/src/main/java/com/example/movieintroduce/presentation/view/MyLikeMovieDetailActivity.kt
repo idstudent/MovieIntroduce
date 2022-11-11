@@ -50,12 +50,14 @@ class MyLikeMovieDetailActivity : AppCompatActivity() {
                 if(it.isEmpty()) {
                     setOffRememberBtn()
                 }else {
-                    it.mapIndexed { index, _ ->
-                        if (movieData.movieId == it[index].movieId){
-                            setOnRememberBtn()
-                            return@mapIndexed
-                        }else {
-                            setOffRememberBtn()
+                    run {
+                        it.mapIndexed { index, _ ->
+                            if (movieData.movieId == it[index].movieId) {
+                                setOnRememberBtn()
+                                return@run
+                            } else {
+                                setOffRememberBtn()
+                            }
                         }
                     }
                 }

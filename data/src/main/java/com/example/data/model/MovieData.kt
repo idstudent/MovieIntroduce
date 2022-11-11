@@ -6,15 +6,8 @@ import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
-data class NowMoviesResponse (
-        @SerializedName("page")
-        var page : Int,
-        @SerializedName("results")
-        var movieInfoList : ArrayList<Movie>
-)
-
 @Entity(tableName = "movie_table")
-data class Movie (
+data class MovieData (
     @PrimaryKey
     @SerializedName("id")
     var movieId : Int,

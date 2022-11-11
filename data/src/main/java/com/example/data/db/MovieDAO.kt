@@ -1,15 +1,12 @@
 package com.example.data.db
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 import com.example.domain.model.Movie
 import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface MovieDAO {
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertMovie(movie : Movie)
 
     @Delete

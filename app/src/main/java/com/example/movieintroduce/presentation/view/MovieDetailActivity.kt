@@ -2,6 +2,7 @@ package com.example.movieintroduce.presentation.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.widget.Toolbar
@@ -47,15 +48,19 @@ class MovieDetailActivity : AppCompatActivity() {
 
         lifecycleScope.launch {
             movieDetailViewModel.getMovies().collectLatest {
+
                 if(it.isEmpty()) {
                     setOffRememberBtn()
                 }else {
-                    it.mapIndexed { index, _ ->
-                        if (movieData.movieId == it[index].movieId){
-                            setOnRememberBtn()
-                            return@mapIndexed
-                        }else {
-                            setOffRememberBtn()
+                    run {
+                        it.mapIndexed { index, _ ->
+                            Log.e("selljy", "${movieData.movieId} ${it[index].movieId}")
+                            if (movieData.movieId == it[index].movieId) {
+                                setOnRememberBtn()
+                                return@run
+                            } else {
+                                setOffRememberBtn()
+                            }
                         }
                     }
                 }

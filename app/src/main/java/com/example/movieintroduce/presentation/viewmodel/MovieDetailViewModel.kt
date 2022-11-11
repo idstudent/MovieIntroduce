@@ -7,8 +7,10 @@ import com.example.domain.usecase.CancelLikeMovieUseCase
 import com.example.domain.usecase.GetLikeMovieUseCase
 import com.example.domain.usecase.LikeMovieUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -22,7 +24,9 @@ class MovieDetailViewModel @Inject constructor(
 
     fun likeMovieInsert(movie : Movie) : Job {
         return viewModelScope.launch {
-            likeMovieUseCase.execute(movie)
+            withContext(Dispatchers.IO) {
+                likeMovieUseCase.execute(movie)
+            }
 
             _likeStatus.value = Event(true)
         }
@@ -30,7 +34,9 @@ class MovieDetailViewModel @Inject constructor(
 
     fun likeMovieDelete(movie : Movie) : Job {
         return viewModelScope.launch {
-            cancelLikeMovieUseCase.execute(movie)
+            withContext(Dispatchers.IO) {
+                cancelLikeMovieUseCase.execute(movie)
+            }
 
             _likeStatus.value = Event(false)
         }
