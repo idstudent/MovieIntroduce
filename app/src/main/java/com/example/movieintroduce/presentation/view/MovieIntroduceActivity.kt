@@ -45,7 +45,7 @@ class MovieIntroduceActivity : AppCompatActivity() {
 
     private fun getMovieIntroduce() {
         lifecycleScope.launch {
-            movieIntroduceViewModel.getIntroduceMovies("89528b7e09000fdd0fb000cfd09fa419", "ko")
+            movieIntroduceViewModel.getIntroduceMovies("api_key", "ko")
                 .catch { it.printStackTrace() }
                 .collect {
                     showMovieIntroduce(it)
