@@ -2,8 +2,8 @@ package com.example.movieintroduce.presentation.di
 
 import android.app.Application
 import androidx.room.Room
-import com.example.movieintroduce.data.db.MovieDAO
-import com.example.movieintroduce.data.db.MovieDatabase
+import com.example.data.db.MovieDAO
+import com.example.data.db.MovieDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

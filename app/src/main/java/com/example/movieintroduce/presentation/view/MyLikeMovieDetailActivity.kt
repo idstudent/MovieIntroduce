@@ -10,9 +10,10 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.example.movieintroduce.R
 import com.example.movieintroduce.databinding.ActivityMyLikeMovieDetailBinding
-import com.example.movieintroduce.data.model.Movie
+import com.example.domain.model.Movie
 import com.example.movieintroduce.presentation.viewmodel.MovieDetailViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -45,7 +46,7 @@ class MyLikeMovieDetailActivity : AppCompatActivity() {
         binding.movie = movieData
 
         lifecycleScope.launch {
-            movieDetailViewModel.getMovies().collect {
+            movieDetailViewModel.getMovies().collectLatest {
                 if(it.isEmpty()) {
                     setOffRememberBtn()
                 }else {

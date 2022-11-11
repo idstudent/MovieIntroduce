@@ -1,16 +1,13 @@
 package com.example.movieintroduce.presentation.viewmodel
 
-import android.app.Application
 import androidx.lifecycle.*
+import com.example.domain.model.Movie
 import com.example.movieintroduce.Event
-import com.example.movieintroduce.data.model.Movie
-import com.example.movieintroduce.domain.usecase.CancelLikeMovieUseCase
-import com.example.movieintroduce.domain.usecase.GetLikeMovieUseCase
-import com.example.movieintroduce.domain.usecase.LikeMovieUseCase
+import com.example.domain.usecase.CancelLikeMovieUseCase
+import com.example.domain.usecase.GetLikeMovieUseCase
+import com.example.domain.usecase.LikeMovieUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

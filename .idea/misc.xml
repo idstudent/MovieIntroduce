@@ -8,6 +8,8 @@
         <entry key="app/src/main/res/layout/activity_movie_introduce.xml" value="0.35885416666666664" />
         <entry key="app/src/main/res/layout/activity_my_like.xml" value="0.35885416666666664" />
         <entry key="app/src/main/res/layout/activity_my_like_movie_detail.xml" value="0.35885416666666664" />
+        <entry key="app/src/main/res/layout/item_like_movie.xml" value="0.17760416666666667" />
+        <entry key="app/src/main/res/layout/item_movie.xml" value="0.17760416666666667" />
       </map>
     </option>
   </component>

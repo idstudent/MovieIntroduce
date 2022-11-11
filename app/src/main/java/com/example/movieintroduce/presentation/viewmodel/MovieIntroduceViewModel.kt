@@ -5,14 +5,13 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.movieintroduce.data.model.NowMoviesResponse
-import com.example.movieintroduce.data.util.Resource
-import com.example.movieintroduce.domain.usecase.GetIntroduceMovieUseCase
+import com.example.domain.model.NowMoviesResponse
+import com.example.domain.util.Resource
+import com.example.domain.usecase.GetIntroduceMovieUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch

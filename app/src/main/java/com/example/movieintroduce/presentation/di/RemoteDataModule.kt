@@ -1,8 +1,8 @@
 package com.example.movieintroduce.presentation.di
 
-import com.example.movieintroduce.data.api.ApiService
-import com.example.movieintroduce.data.repository.dataSource.MovieRemoteDataSource
-import com.example.movieintroduce.data.repository.dataSourceImpl.MovieRemoteDataSourceImpl
+import com.example.data.api.ApiService
+import com.example.data.repository.dataSource.MovieRemoteDataSource
+import com.example.data.repository.dataSourceImpl.MovieRemoteDataSourceImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

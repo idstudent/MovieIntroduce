@@ -1,16 +1,14 @@
 package com.example.movieintroduce.presentation.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.example.domain.model.Movie
 import com.example.movieintroduce.R
 import com.example.movieintroduce.databinding.ItemLikeMovieBinding
-import com.example.movieintroduce.data.model.Movie
-import com.example.movieintroduce.listener.ItemClickListener
 
 class MyLikeMovieAdapter(
     private val listener : (movie : Movie) -> Unit

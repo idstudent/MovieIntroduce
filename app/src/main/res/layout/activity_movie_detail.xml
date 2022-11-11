@@ -6,7 +6,7 @@
     <data>
         <variable
             name="movie"
-            type="com.example.movieintroduce.data.model.Movie" />
+            type="com.example.domain.model.Movie" />
         <variable
             name="movieViewModel"
             type="com.example.movieintroduce.presentation.viewmodel.MovieDetailViewModel" />

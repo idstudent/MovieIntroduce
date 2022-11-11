@@ -5,18 +5,18 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.domain.model.Movie
 import com.example.movieintroduce.R
 import com.example.movieintroduce.presentation.adapter.MyLikeMovieAdapter
 import com.example.movieintroduce.databinding.ActivityMyLikeBinding
-import com.example.movieintroduce.data.model.Movie
-import com.example.movieintroduce.listener.ItemClickListener
 import com.example.movieintroduce.presentation.viewmodel.MovieDetailViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import javax.inject.Inject
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
+
 
 @AndroidEntryPoint
 class MyLikeActivity : AppCompatActivity() {
@@ -41,7 +41,7 @@ class MyLikeActivity : AppCompatActivity() {
 
     private fun getLikeMovies() {
         lifecycleScope.launch {
-            movieDetailViewModel.getMovies().collect {
+            movieDetailViewModel.getMovies().collectLatest {
                 showMyLikeMovies(it)
             }
         }

@@ -6,19 +6,14 @@ import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.movieintroduce.R
 import com.example.movieintroduce.presentation.adapter.MovieIntroduceAdapter
 import com.example.movieintroduce.databinding.ActivityMovieIntroduceBinding
-import com.example.movieintroduce.data.model.Movie
-import com.example.movieintroduce.data.model.NowMoviesResponse
-import com.example.movieintroduce.listener.ItemClickListener
-import com.example.movieintroduce.data.util.Resource
-import com.example.movieintroduce.presentation.viewmodel.MovieDetailViewModel
+import com.example.domain.model.Movie
+import com.example.domain.util.Resource
 import com.example.movieintroduce.presentation.viewmodel.MovieIntroduceViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class MovieIntroduceActivity : AppCompatActivity() {

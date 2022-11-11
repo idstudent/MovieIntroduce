@@ -8,8 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.movieintroduce.R
 import com.example.movieintroduce.databinding.ItemMovieBinding
-import com.example.movieintroduce.data.model.Movie
-import com.example.movieintroduce.listener.ItemClickListener
+import com.example.domain.model.Movie
 
 class MovieIntroduceAdapter(
     private val listener : (movie : Movie) -> Unit

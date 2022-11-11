@@ -6,7 +6,7 @@
     <data>
         <variable
             name="movie"
-            type="com.example.movieintroduce.data.model.Movie" />
+            type="com.example.domain.model.Movie" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

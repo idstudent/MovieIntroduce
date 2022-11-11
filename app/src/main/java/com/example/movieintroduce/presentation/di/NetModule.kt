@@ -1,6 +1,6 @@
 package com.example.movieintroduce.presentation.di
 
-import com.example.movieintroduce.data.api.ApiService
+import com.example.data.api.ApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
