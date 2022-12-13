@@ -19,6 +19,10 @@ data class Movie (
     @SerializedName("id")
     var movieId : Int,
 
+    @ColumnInfo(name = "genre_ids")
+    @SerializedName("genre_ids")
+    var genreIds: List<Int>,
+
     @ColumnInfo(name = "detail_img")
     @SerializedName("backdrop_path") // 상세 이미지
     var detailImg : String,

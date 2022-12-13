@@ -2,6 +2,7 @@ package com.example.movieintroduce.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -52,6 +53,7 @@ class MovieDetailActivity : AppCompatActivity() {
 
         lifecycleScope.launch {
             movieDetailViewModel.getMovies().collect {
+                Log.e("itljy","$it")
                 it.mapIndexed { index, _ ->
                     if (movieData.movieId == it[index].movieId) {
                         movieRememberBtn(true)
