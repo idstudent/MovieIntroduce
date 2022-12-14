@@ -10,10 +10,13 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.*
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.movieintroduce.R
 import com.example.movieintroduce.adapter.MovieIntroduceAdapter
+import com.example.movieintroduce.adapter.MovieIntroduceTestAdapter
 import com.example.movieintroduce.databinding.FragmentMovieIntroduceBinding
 import com.example.movieintroduce.db.MovieDatabase
+import com.example.movieintroduce.model.Movie
 import com.example.movieintroduce.repository.MovieRepository
 import com.example.movieintroduce.viewmodel.MovieDetailViewModel
 import com.example.movieintroduce.viewmodel.MovieDetailViewModelFactory
@@ -22,6 +25,9 @@ import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
 
 class MovieIntroduceFragment : Fragment() {
+    private val testAdapter = MovieIntroduceTestAdapter()
+    private var pos = 1
+    private var testArr = ArrayList<Movie>()
     private val adapter: MovieIntroduceAdapter by lazy {
         MovieIntroduceAdapter { item ->
             val intent = Intent(activity, MovieDetailActivity::class.java)
@@ -57,7 +63,7 @@ class MovieIntroduceFragment : Fragment() {
 
         binding.run {
             movieRecycler.layoutManager = GridLayoutManager(activity, 2)
-            movieRecycler.adapter = adapter
+            movieRecycler.adapter = testAdapter
 
             swipeLayout.setOnRefreshListener {
                 getMovieIntroduce()
@@ -69,19 +75,42 @@ class MovieIntroduceFragment : Fragment() {
     }
 
     private fun getMovieIntroduce() {
-//
-//        lifecycleScope.launch(CoroutineExceptionHandler { _, throwable ->
-//            Log.e("testljy", "throw ${throwable.printStackTrace()}")
-//        }) {
-//            val test = movieIntroduceViewModel.test()
-//            Log.e("testljy","${test}")
-//        }
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                movieIntroduceViewModel.getMovieIntroduces().collect {
-                    adapter.submitData(it)
+        binding.movieRecycler.addOnScrollListener(object : RecyclerView.OnScrollListener(){
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+
+                if(recyclerView.canScrollVertically(-1)) {
+                    Log.e("recyljy","하단")
+
+                    lifecycleScope.launch(CoroutineExceptionHandler { _, throwable ->
+                        Log.e("testljy", "throw ${throwable.printStackTrace()}")
+                    }) {
+                        pos++
+
+                        val test = movieIntroduceViewModel.test(pos).body()?.movieInfoList
+                        Log.e("testljy", "${test}")
+
+                        test?.let { testArr.addAll(it) }
+                        testAdapter.submitList(testArr)
+                    }
+
                 }
             }
+        })
+        lifecycleScope.launch(CoroutineExceptionHandler { _, throwable ->
+            Log.e("testljy", "throw ${throwable.printStackTrace()}")
+        }) {
+            val test = movieIntroduceViewModel.test(pos).body()?.movieInfoList
+            Log.e("testljy","${test}")
+            test?.let { testArr.addAll(it) }
+            testAdapter.submitList(testArr)
         }
+//        viewLifecycleOwner.lifecycleScope.launch {
+//            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+//                movieIntroduceViewModel.getMovieIntroduces().collect {
+//                    adapter.submitData(it)
+//                }
+//            }
+//        }
     }
 }
