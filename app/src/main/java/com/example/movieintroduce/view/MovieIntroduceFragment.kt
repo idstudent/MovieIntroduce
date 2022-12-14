@@ -2,6 +2,7 @@ package com.example.movieintroduce.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -17,6 +18,7 @@ import com.example.movieintroduce.repository.MovieRepository
 import com.example.movieintroduce.viewmodel.MovieDetailViewModel
 import com.example.movieintroduce.viewmodel.MovieDetailViewModelFactory
 import com.example.movieintroduce.viewmodel.MovieIntroduceViewModel
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
 
 class MovieIntroduceFragment : Fragment() {
@@ -36,7 +38,8 @@ class MovieIntroduceFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_movie_introduce, container, false)
+        binding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_movie_introduce, container, false)
         return binding.root
     }
 
@@ -64,7 +67,15 @@ class MovieIntroduceFragment : Fragment() {
 
         getMovieIntroduce()
     }
+
     private fun getMovieIntroduce() {
+//
+//        lifecycleScope.launch(CoroutineExceptionHandler { _, throwable ->
+//            Log.e("testljy", "throw ${throwable.printStackTrace()}")
+//        }) {
+//            val test = movieIntroduceViewModel.test()
+//            Log.e("testljy","${test}")
+//        }
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 movieIntroduceViewModel.getMovieIntroduces().collect {
