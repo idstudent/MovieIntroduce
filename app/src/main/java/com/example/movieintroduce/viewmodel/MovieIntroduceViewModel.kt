@@ -19,6 +19,6 @@ class MovieIntroduceViewModel : ViewModel() {
     suspend fun test(page : Int): Response<NowMoviesResponse> {
 
         return ApiManager.getInstance()
-            .getNowViewMovies("89528b7e09000fdd0fb000cfd09fa419", "ko", page)
+            .getNowViewMovies("api_key", "ko", page)
     }
 }
